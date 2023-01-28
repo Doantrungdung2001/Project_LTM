@@ -5,43 +5,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Logn In</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 </head>
 
 <body>
-    <div class="container bootstrap snippets bootdey">
-        <div class="header">
-            <ul class="nav nav-pills pull-right">
-                <li><a href="#">&nbsp;</a></li>
-            </ul>
-            <h3 class="text-muted prj-name">Project Name</h3>
-        </div>
-
-        <div style="height:auto;min-height:300px;" class="jumbotron">
-            <div class="col-md-4">
-                <img class="img-responsive center-block img-user" src="https://bootdey.com/img/Content/Manbrown2.png">
+    <div id="login">
+        <h3 class="text-center text-white pt-5">Login form</h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="" method="post">
+                            <h3 class="text-center text-info">Login</h3>
+                            <div class="form-group">
+                                <label for="username" class="text-info">Username:</label><br>
+                                <input type="text" name="username" id="username" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-info">Password:</label><br>
+                                <input type="text" name="password" id="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="remember-me" class="text-info"><span>Remember me</span> <span><input
+                                            id="remember-me" name="remember-me" type="checkbox"></span></label><br>
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                            </div>
+                            <div id="register-link" class="text-right">
+                                <a href="#" class="text-info">Register here</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6 form-content">
-                <form accept-charset="utf-8" method="post" id="UserLoginForm" class="form-signin" action="">
-                    <h1 class="form-signin-heading text-muted">Login</h1>
-                    <input type="text" id="username" autofocus="autofocus" placeholder="Username" class="form-control"
-                        name="username">
-                    <input type="password" id="password" placeholder="Password" class="form-control" name="password">
-                    <button type="button" class="btn btn-lg btn-info btn-block">
-                        <i class="fa fa-share"></i>
-                        Login
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="container bootstrap snippets bootdey">
-            <footer class="footer">
-                <p>&copy; Company name 2015</p>
-            </footer>
         </div>
     </div>
 </body>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </html>
