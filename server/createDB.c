@@ -30,7 +30,7 @@ int main(int argc, char const *argv[])
   }
 
   //****CREATE DATABASE*****
-  if (mysql_query(con, "CREATE DATABASE IF NOT EXISTS Share_Image CHARACTER SET utf8 COLLATE utf8_unicode_ci"))
+  if (mysql_query(con, "CREATE DATABASE IF NOT EXISTS share_image CHARACTER SET utf8 COLLATE utf8_unicode_ci"))
   {
     if (strcmp(mysql_error(con),
                "Can't create database 'test'; database exists") == 0)
@@ -47,7 +47,7 @@ int main(int argc, char const *argv[])
   printf("%s\n", "Create database succesfully ...");
 
   // ****SELECT DATABASE****
-  if (mysql_query(con, "USE Share_Image"))
+  if (mysql_query(con, "USE share_image"))
   {
     fprintf(stderr, "%s\n", mysql_error(con));
     mysql_close(con);
