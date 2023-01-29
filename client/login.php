@@ -11,6 +11,13 @@
 </head>
 
 <body>
+    <?php
+        session_start();
+        $host = "127.0.0.1";
+        $port = 8888;
+        $_SESSION['host_server'] = $host;
+        $_SESSION['port']= $port; 
+    ?>
     <div id="login">
         <h3 class="text-center text-white pt-5">Login form</h3>
         <div class="container">
