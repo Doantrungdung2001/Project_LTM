@@ -15,7 +15,9 @@
 #include "protocol.h"
 #include "serverFunction.h"
 #define BUFF_SIZE 1024
-
+#define ONLINE 1
+#define OFFLINE 0
+#define BLOCK 2
 extern MYSQL *con;
 
 void finish_with_error(MYSQL *con)
@@ -125,6 +127,7 @@ int loginUser(char *message, int socket)
     printf("Start handle login\n");
     char username[255] = "\0";
     char password[255] = "\0";
+    char status[10] = "\0";
     char serverMess[BUFF_SIZE] = "\0";
     char *token;
     char query[BUFF_SIZE] = "\0";
@@ -170,6 +173,21 @@ int loginUser(char *message, int socket)
         }
         else
         {
+            // char server_message[100] = "\0";
+            // char temp[512];
+            // sprintf(query, "SELECT * from users where status='%d'",ONLINE);
+            // // Check account is signing in other device
+            // if(mysql_query(con, query)){
+            //     sprintf(server_message, "%d|Successfully logged in|\n", LOGIN_SUCCESS);
+            //     send(socket, server_message, sizeof(server_message), 0);
+            //     printf("3");
+            //     return 1;
+            // }else{
+            //     sprintf(serverMess, "%d|%s\n", QUERY_FAIL, mysql_error(con));
+            //     send(socket, serverMess, strlen(serverMess), 0);
+            //     printf("2");
+            //     return 0;
+            // }
             // Check account is signing in other device
             char server_message[100] = "\0";
             char temp[512];
