@@ -132,6 +132,9 @@
                                     class="fa-fw fa fa-plus"></i></button>
                         </div>
                     </div>
+                    <form action="handle_logout.php" method="post">
+                        <button type="submit">Log out</button>
+                    </form>
                 </div>
                 <div class="mb-3 Card_custom-card--border_5wJKy card">
                     <div class="table-responsive-xl">

@@ -241,16 +241,16 @@ int logoutUser(char *message, int socket)
 
     return 1;
 }
-void encryptPassword(char *password)
-{
-    for (int i = 0; i < strlen(password); i++)
-    {
-        if ((int)password[i] > i)
-        {
-            password[i] = password[i] - i;
-        }
-    }
-}
+// void encryptPassword(char *password)
+// {
+//     for (int i = 0; i < strlen(password); i++)
+//     {
+//         if ((int)password[i] > i)
+//         {
+//             password[i] = password[i] - i;
+//         }
+//     }
+// }
 
 
 

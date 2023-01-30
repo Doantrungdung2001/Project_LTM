@@ -23,5 +23,17 @@
         if (!$response) die("client read fail:" . socket_strerror(socket_last_error()) . "\n");
 
         $response = explode("|", $response);
+        echo $response[0];
         echo $response[1];
+        if($response[0] == "14"){
+                echo "<script>window.location.href = 'home.php';</script>";
+        }else{
+                echo "<script>window.location.href = 'login.html';</script>";
+        }
+        
 ?>
+<html>
+        <form action="handle_logout.php" method="post">
+                <button type="submit">Log out</button>
+        </form>
+</html>
