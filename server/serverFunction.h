@@ -6,5 +6,4 @@ void handle_message(char*, int);
 int registerUser(char*, int);
 int loginUser(char*, int);
 int logoutUser(char*, int);
-void showListPractices(char *, int );
 #endif  // _SERVER_FUNC_H
