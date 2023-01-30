@@ -65,7 +65,7 @@ int main(int argc, char const *argv[])
 
   if (mysql_query(
           con,
-          "CREATE TABLE users(id INT PRIMARY KEY AUTO_INCREMENT, username VARCHAR(255) UNIQUE, password VARCHAR(255))"))
+          "CREATE TABLE users(id INT PRIMARY KEY AUTO_INCREMENT, username VARCHAR(255) UNIQUE, password VARCHAR(255),status VARCHAR(10))"))
   {
     fprintf(stderr, "%s\n", mysql_error(con));
     mysql_close(con);
@@ -84,7 +84,7 @@ int main(int argc, char const *argv[])
 
   if (mysql_query(
           con,
-          "INSERT INTO users(username, password) VALUES('admin', '123456'), ('dungdoan', '191001')"))
+          "INSERT INTO users(username, password,status) VALUES('admin', '123456','1'), ('dungdoan', '191001','0')"))
   {
     fprintf(stderr, "%s\n", mysql_error(con));
     mysql_close(con);

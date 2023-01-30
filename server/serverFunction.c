@@ -134,7 +134,7 @@ int loginUser(char *message, int socket)
     strcpy(username, token);
     token = strtok(NULL, "|");
     strcpy(password, token);
-    encryptPassword(password);
+    //encryptPassword(password);
     printf("%s %s\n",username, password);
 
     // Query to validate account
@@ -173,7 +173,7 @@ int loginUser(char *message, int socket)
             // Check account is signing in other device
             char server_message[100] = "\0";
             char temp[512];
-            sprintf(query, "SELECT * from using_accounts where username='%s'", username);
+            sprintf(query, "SELECT * from users where username='%s'", username);
             if (mysql_query(con, query))
             {
                 sprintf(serverMess, "%d|%s\n", QUERY_FAIL, mysql_error(con));
@@ -185,7 +185,7 @@ int loginUser(char *message, int socket)
             if (mysql_num_rows(result) == 0)
             {
                 // Push account into signing in account table
-                sprintf(query, "INSERT INTO using_accounts (username) VALUES ('%s')", username);
+                sprintf(query, "INSERT INTO users (username) VALUES ('%s')", username);
                 mysql_query(con, query);
                 sprintf(server_message, "%d|Successfully logged in|\n", LOGIN_SUCCESS);
                 send(socket, server_message, sizeof(server_message), 0);
