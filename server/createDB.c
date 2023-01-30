@@ -90,7 +90,22 @@ int main(int argc, char const *argv[])
     mysql_close(con);
     exit(1);
   }
-
+  // ****CREATE USER USING ACOUNT TABLE acount_using****
+  if (mysql_query(con, "DROP TABLE IF EXISTS acount_using"))
+  {
+    fprintf(stderr, "%s\n", mysql_error(con));
+    mysql_close(con);
+    exit(1);
+  }
+  if (mysql_query(
+          con,
+          "CREATE TABLE acount_using(id INT PRIMARY KEY AUTO_INCREMENT, username VARCHAR(255))"))
+  {
+    fprintf(stderr, "%s\n", mysql_error(con));
+    mysql_close(con);
+    exit(1);
+  }
+  printf("%s\n", "Create table acount_using succesfully ...");
   // mysql_close(con);
   // exit(0);
 }
