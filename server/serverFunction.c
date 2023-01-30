@@ -147,7 +147,6 @@ int loginUser(char *message, int socket)
     if (mysql_query(con, query))
     {
         sprintf(serverMess, "%d|%s|\n", QUERY_FAIL, mysql_error(con));
-        printf("a");
         send(socket, serverMess, strlen(serverMess), 0);
         return 0;
     }
@@ -156,7 +155,6 @@ int loginUser(char *message, int socket)
     {
         sprintf(serverMess, "%d|Invalid username|\n", USERNAME_NOTFOUND);
         send(socket, serverMess, strlen(serverMess), 0);
-        printf("0");
         return 0;
     }
     else
@@ -167,7 +165,6 @@ int loginUser(char *message, int socket)
         {
             sprintf(serverMess, "%d|Password is incorrect|\n", PASSWORD_INCORRECT);
             send(socket, serverMess, strlen(serverMess), 0);
-            printf("1");
             return 0;
             
         }
@@ -191,32 +188,30 @@ int loginUser(char *message, int socket)
             // Check account is signing in other device
             char server_message[100] = "\0";
             char temp[512];
-            sprintf(query, "SELECT * from users where username='%s'", username);
+            sprintf(query, "SELECT * from acount_using where username='%s'", username);
             if (mysql_query(con, query))
             {
                 sprintf(serverMess, "%d|%s\n", QUERY_FAIL, mysql_error(con));
                 send(socket, serverMess, strlen(serverMess), 0);
-                printf("2");
                 return 0;
             }
             MYSQL_RES *result = mysql_store_result(con);
             if (mysql_num_rows(result) == 0)
             {
                 // Push account into signing in account table
-                sprintf(query, "INSERT INTO users (username) VALUES ('%s')", username);
+                sprintf(query, "INSERT INTO acount_using (username) VALUES ('%s')", username);
                 mysql_query(con, query);
                 sprintf(server_message, "%d|Successfully logged in|\n", LOGIN_SUCCESS);
                 send(socket, server_message, sizeof(server_message), 0);
-                printf("3");
                 return 1;
             }
             else
             {
                 sprintf(server_message, "%d|Your account is signing in other device|\n", USERNAME_IS_SIGNIN);
                 send(socket, server_message, sizeof(server_message), 0);
-                printf("4");
                 return 0;
             }
+            mysql_free_result(con);
         }
     }
 }
