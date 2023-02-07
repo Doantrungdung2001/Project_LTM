@@ -7,10 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Danh sách người dùng</title>
   <link rel="stylesheet" href="assets/css/list_user.css">
+  <link rel="stylesheet" href="assets/css/home.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
     integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" 
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
 </head>
 
 <body>
@@ -48,42 +51,48 @@
                 <tr>
                   <th>Người dùng</th>
                   <th class="text-center">Hình ảnh</th>
-                  <th class="action text-right">Hoạt động</th>
+                  <th class="action text-right"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="candidates-list">
+              <tr class="candidates-list">
                   <td class="title">
                     <div class="thumb">
-                      <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+                      <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
                     </div>
                     <div class="candidate-list-details">
                       <div class="candidate-list-info">
                         <div class="candidate-list-title">
-                          <h5 class="mb-0"><a href="#">Brooke Kelly</a></h5>
+                          <h5 class="mb-0"><a href="#">Vickie Meyer</a></h5>
                         </div>
                         <div class="candidate-list-option">
                           <ul class="list-unstyled">
-                            <li><i class="fas fa-filter pr-1"></i>Information Technology</li>
-                            <li><i class="fas fa-map-marker-alt pr-1"></i>Rolling Meadows, IL 60008</li>
+                            <li><i class="fas fa-filter pr-1"></i>HUST</li>
+                            <li><i class="fas fa-map-marker-alt pr-1"></i>Lương Tài , Bắc Ninh</li>
                           </ul>
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td class="candidate-list-favourite-time text-center">
-                    <a class="candidate-list-favourite order-2 text-danger" href="#"><i class="fas fa-heart"></i></a>
-                    <span class="candidate-list-time order-1">Shortlisted</span>
-                  </td>
+                  <td class="align-middle">
+                                        <div class="avatar-image avatar-image--loaded">
+                                            <div class="avatar avatar--md avatar-image__image">
+                                                <div class="avatar__content"><img
+                                                        src="https://bootdey.com/img/Content/avatar/avatar6.png"></div>
+                                          </div>
+                              </div>
+                    </td>
+                  <td>
                   <td>
                     <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                      <li><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view"><i
-                            class="far fa-eye"></i></a></li>
-                      <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i
-                            class="fas fa-pencil-alt"></i></a></li>
-                      <li><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i
-                            class="far fa-trash-alt"></i></a></li>
-                    </ul>
+                        <!-- <li><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view"><i
+                              class="far fa-eye"></i></a></li>
+                        <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i
+                              class="fas fa-pencil-alt"></i></a></li>
+                        <li><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i
+                              class="far fa-trash-alt"></i></a></li> -->
+                        <i class="fas fa-download"></i>
+                      </ul>
                   </td>
                 </tr>
                 <tr class="candidates-list">
@@ -98,26 +107,32 @@
                         </div>
                         <div class="candidate-list-option">
                           <ul class="list-unstyled">
-                            <li><i class="fas fa-filter pr-1"></i>Human Resources</li>
-                            <li><i class="fas fa-map-marker-alt pr-1"></i>Monroe Township, NJ 08831</li>
+                            <li><i class="fas fa-filter pr-1"></i>HUST</li>
+                            <li><i class="fas fa-map-marker-alt pr-1"></i>Lương Tài , Bắc Ninh</li>
                           </ul>
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td class="candidate-list-favourite-time text-center">
-                    <a class="candidate-list-favourite order-2 text-danger" href="#"><i class="fas fa-heart"></i></a>
-                    <span class="candidate-list-time order-1">Shortlisted</span>
-                  </td>
+                  <td class="align-middle">
+                                        <div class="avatar-image avatar-image--loaded">
+                                            <div class="avatar avatar--md avatar-image__image">
+                                                <div class="avatar__content"><img
+                                                        src="https://bootdey.com/img/Content/avatar/avatar6.png"></div>
+                                          </div>
+                              </div>
+                    </td>
+                  <td>
                   <td>
                     <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                      <li><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view"><i
-                            class="far fa-eye"></i></a></li>
-                      <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i
-                            class="fas fa-pencil-alt"></i></a></li>
-                      <li><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i
-                            class="far fa-trash-alt"></i></a></li>
-                    </ul>
+                        <!-- <li><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view"><i
+                              class="far fa-eye"></i></a></li>
+                        <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i
+                              class="fas fa-pencil-alt"></i></a></li>
+                        <li><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i
+                              class="far fa-trash-alt"></i></a></li> -->
+                        <i class="fas fa-download"></i>
+                      </ul>
                   </td>
                 </tr>
                 <tr class="candidates-list">
@@ -132,26 +147,32 @@
                         </div>
                         <div class="candidate-list-option">
                           <ul class="list-unstyled">
-                            <li><i class="fas fa-filter pr-1"></i>Recruitment Consultancy</li>
-                            <li><i class="fas fa-map-marker-alt pr-1"></i>Haines City, FL 33844</li>
+                            <li><i class="fas fa-filter pr-1"></i>HUST</li>
+                            <li><i class="fas fa-map-marker-alt pr-1"></i>Lương Tài , Bắc Ninh</li>
                           </ul>
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td class="candidate-list-favourite-time text-center">
-                    <a class="candidate-list-favourite order-2 text-danger" href="#"><i class="fas fa-heart"></i></a>
-                    <span class="candidate-list-time order-1">Shortlisted</span>
-                  </td>
+                  <td class="align-middle">
+                                        <div class="avatar-image avatar-image--loaded">
+                                            <div class="avatar avatar--md avatar-image__image">
+                                                <div class="avatar__content"><img
+                                                        src="https://bootdey.com/img/Content/avatar/avatar6.png"></div>
+                                          </div>
+                              </div>
+                    </td>
+                  <td>
                   <td>
                     <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                      <li><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view"><i
-                            class="far fa-eye"></i></a></li>
-                      <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i
-                            class="fas fa-pencil-alt"></i></a></li>
-                      <li><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i
-                            class="far fa-trash-alt"></i></a></li>
-                    </ul>
+                        <!-- <li><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view"><i
+                              class="far fa-eye"></i></a></li>
+                        <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i
+                              class="fas fa-pencil-alt"></i></a></li>
+                        <li><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i
+                              class="far fa-trash-alt"></i></a></li> -->
+                        <i class="fas fa-download"></i>
+                      </ul>
                   </td>
                 </tr>
                 <tr class="candidates-list">
@@ -166,62 +187,35 @@
                         </div>
                         <div class="candidate-list-option">
                           <ul class="list-unstyled">
-                            <li><i class="fas fa-filter pr-1"></i>Human Resources</li>
-                            <li><i class="fas fa-map-marker-alt pr-1"></i>Minneapolis, MN 55406</li>
+                            <li><i class="fas fa-filter pr-1"></i>HUST</li>
+                            <li><i class="fas fa-map-marker-alt pr-1"></i>Lương Tài , Bắc Ninh</li>
                           </ul>
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td class="candidate-list-favourite-time text-center">
-                    <a class="candidate-list-favourite order-2 text-danger" href="#"><i class="fas fa-heart"></i></a>
-                    <span class="candidate-list-time order-1">Shortlisted</span>
-                  </td>
+                  <td class="align-middle">
+                                        <div class="avatar-image avatar-image--loaded">
+                                            <div class="avatar avatar--md avatar-image__image">
+                                                <div class="avatar__content"><img
+                                                        src="https://bootdey.com/img/Content/avatar/avatar6.png"></div>
+                                          </div>
+                              </div>
+                    </td>
+                  <td>
                   <td>
                     <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                      <li><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view"><i
-                            class="far fa-eye"></i></a></li>
-                      <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i
-                            class="fas fa-pencil-alt"></i></a></li>
-                      <li><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i
-                            class="far fa-trash-alt"></i></a></li>
-                    </ul>
+                        <!-- <li><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view"><i
+                              class="far fa-eye"></i></a></li>
+                        <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i
+                              class="fas fa-pencil-alt"></i></a></li>
+                        <li><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i
+                              class="far fa-trash-alt"></i></a></li> -->
+                        <i class="fas fa-download"></i>
+                      </ul>
                   </td>
                 </tr>
-                <tr class="candidates-list">
-                  <td class="title">
-                    <div class="thumb">
-                      <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="">
-                    </div>
-                    <div class="candidate-list-details">
-                      <div class="candidate-list-info">
-                        <div class="candidate-list-title">
-                          <h5 class="mb-0"><a href="#">Nichole Haynes</a></h5>
-                        </div>
-                        <div class="candidate-list-option">
-                          <ul class="list-unstyled">
-                            <li><i class="fas fa-filter pr-1"></i>Information Technology</li>
-                            <li><i class="fas fa-map-marker-alt pr-1"></i>Botchergate, Carlisle</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="candidate-list-favourite-time text-center">
-                    <a class="candidate-list-favourite order-2 text-danger" href="#"><i class="fas fa-heart"></i></a>
-                    <span class="candidate-list-time order-1">Shortlisted</span>
-                  </td>
-                  <td>
-                    <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                      <li><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view"><i
-                            class="far fa-eye"></i></a></li>
-                      <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i
-                            class="fas fa-pencil-alt"></i></a></li>
-                      <li><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i
-                            class="far fa-trash-alt"></i></a></li>
-                    </ul>
-                  </td>
-                </tr>
+               
               </tbody>
             </table>
             <div class="text-center mt-3 mt-sm-3">
@@ -232,7 +226,6 @@
                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item"><a class="page-link" href="#">...</a></li>
-                <li class="page-item"><a class="page-link" href="#">25</a></li>
                 <li class="page-item"> <a class="page-link" href="#">Next</a> </li>
               </ul>
             </div>

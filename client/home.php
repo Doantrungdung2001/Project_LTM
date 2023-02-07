@@ -38,7 +38,7 @@
                     </div> -->
                     <form action="handle_search.php" method="POST">
                         <input placeholder="Tìm kiếm hình ảnh..." type="text" class="form-control" name="search">
-	                    <input type="submit" value="Search" />
+	                    <input type="submit" value="Tìm kiếm" />
                     </form>
                 </div>
                 <!-- <div class="mb-4">
@@ -82,8 +82,7 @@
                                         </div>
                                     </div>
                                     <div class="media-body">
-                                        <div class="mt-0">Hobart Hintz</div><span class="small">North Carolina,
-                                            CT</span>
+                                        <div class="mt-0">Đoàn Trung Dũng</div><span class="small">Lương Tài , Bắc Ninh</span>
                                     </div>
                                 <!-- </div><i class="fa fa-fw fa-circle text-warning ml-auto align-self-center ml-2"></i> -->
                             </a>
@@ -119,9 +118,9 @@
                             <thead>
                                 <tr>
                                     <th class="align-middle bt-0">Yêu thích</th>
-                                    <th class="align-middle bt-0">Hình ảnh</th>
+                                    <!-- <th class="align-middle bt-0">Hình ảnh</th> -->
                                     <th class="align-middle bt-0">Trạng thái</th>
-                                    <th class="align-middle bt-0">Tasks Completed</th>
+                                    <th class="align-middle bt-0">Số hình ảnh </th>
                                     <th class="align-middle bt-0">Người dùng</th>
                                     <th class="align-middle bt-0 text-right">Cài đặt</th>
                                 </tr>
@@ -133,11 +132,14 @@
                                                     class="fa fa-fw fa-lg fa-star-o"></i></a>
                                         </div>
                                     </td>
-                                    <td class="align-middle">
-                                        <div><a href="#">Ergonomic real-time adapter</a></div><span>Last Edited by:
-                                            Savanah
-                                            Durgan <br>Sunday, 12 June, 2018</span>
-                                    </td>
+                                    <!-- <td class="align-middle">
+                                        <div class="avatar-image avatar-image--loaded">
+                                            <div class="avatar avatar--md avatar-image__image">
+                                                <div class="avatar__content"><img
+                                                        src="https://bootdey.com/img/Content/avatar/avatar1.png"></div>
+                                            </div>
+                                        </div>
+                                    </td> -->
                                     <td class="align-middle"><span class="badge badge-success badge-pill">Active</span>
                                     </td>
                                     <td class="align-middle">
@@ -145,7 +147,7 @@
                                             <div class="progress-bar" role="progressbar" aria-valuenow="25"
                                                 aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
                                         </div>
-                                        <div>Tasks Completed:<span class="text-inverse">36/94</span></div>
+                                        <div><span class="text-inverse">36/94</span></div>
                                     </td>
                                     <td class="align-middle">
                                         <div class="avatar-image avatar-image--loaded">
@@ -180,20 +182,23 @@
                                                     class="fa fa-fw fa-lg fa-star-o"></i></a>
                                         </div>
                                     </td>
-                                    <td class="align-middle">
-                                        <div><a href="#">Stand-alone clear-thinking initiative</a></div><span>Last
-                                            Edited
-                                            by: Brando Gutkowski <br>Friday, 12 December, 2018</span>
-                                    </td>
+                                    <!-- <td class="align-middle">
+                                        <div class="avatar-image avatar-image--loaded">
+                                            <div class="avatar avatar--md avatar-image__image">
+                                                <div class="avatar__content"><img
+                                                        src="https://bootdey.com/img/Content/avatar/avatar1.png"></div>
+                                            </div>
+                                        </div>
+                                    </td> -->
                                     <td class="align-middle"><span
-                                            class="badge badge-danger badge-pill">Suspended</span>
+                                        <span class="badge badge-success badge-pill">Active</span>
                                     </td>
                                     <td class="align-middle">
                                         <div class="mb-2 progress" style="height: 5px;">
                                             <div class="progress-bar" role="progressbar" aria-valuenow="50"
                                                 aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
                                         </div>
-                                        <div>Tasks Completed:<span class="text-inverse">36/94</span></div>
+                                        <div><span class="text-inverse">36/94</span></div>
                                     </td>
                                     <td class="align-middle">
                                         <div class="avatar-image avatar-image--loaded">
@@ -228,19 +233,22 @@
                                                     class="fa fa-fw fa-lg fa-star-o"></i></a>
                                         </div>
                                     </td>
-                                    <td class="align-middle">
-                                        <div><a href="#">Configurable homogeneous knowledge user</a></div><span>Last
-                                            Edited
-                                            by: Wilmer Gorczany <br>Tuesday, 12 June, 2018</span>
-                                    </td>
-                                    <td class="align-middle"><span class="badge badge-warning badge-pill">Waiting</span>
+                                    <!-- <td class="align-middle">
+                                        <div class="avatar-image avatar-image--loaded">
+                                            <div class="avatar avatar--md avatar-image__image">
+                                                <div class="avatar__content"><img
+                                                        src="https://bootdey.com/img/Content/avatar/avatar1.png"></div>
+                                            </div>
+                                        </div>
+                                    </td> -->
+                                    <td class="align-middle"><span class="badge badge-success badge-pill">Active</span>
                                     </td>
                                     <td class="align-middle">
                                         <div class="mb-2 progress" style="height: 5px;">
                                             <div class="progress-bar" role="progressbar" aria-valuenow="70"
                                                 aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
                                         </div>
-                                        <div>Tasks Completed:<span class="text-inverse">36/94</span></div>
+                                        <div><span class="text-inverse">36/94</span></div>
                                     </td>
                                     <td class="align-middle">
                                         <div class="avatar-image avatar-image--loaded">
@@ -275,19 +283,22 @@
                                                     class="fa fa-fw fa-lg fa-star-o"></i></a>
                                         </div>
                                     </td>
-                                    <td class="align-middle">
-                                        <div><a href="#">Progressive 3rd generation superstructure</a></div><span>Last
-                                            Edited by: Eden Green <br>Sunday, 12 September, 2018</span>
-                                    </td>
-                                    <td class="align-middle"><span
-                                            class="badge badge-secondary badge-pill">Paused</span>
+                                    <!-- <td class="align-middle">
+                                        <div class="avatar-image avatar-image--loaded">
+                                            <div class="avatar avatar--md avatar-image__image">
+                                                <div class="avatar__content"><img
+                                                        src="https://bootdey.com/img/Content/avatar/avatar1.png"></div>
+                                            </div>
+                                        </div>
+                                    </td> -->
+                                    <td class="align-middle"><span class="badge badge-success badge-pill">Active</span>
                                     </td>
                                     <td class="align-middle">
                                         <div class="mb-2 progress" style="height: 5px;">
                                             <div class="progress-bar" role="progressbar" aria-valuenow="90"
                                                 aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
                                         </div>
-                                        <div>Tasks Completed:<span class="text-inverse">36/94</span></div>
+                                        <div><span class="text-inverse">36/94</span></div>
                                     </td>
                                     <td class="align-middle">
                                         <div class="avatar-image avatar-image--loaded">
@@ -322,11 +333,14 @@
                                                     class="fa fa-fw fa-lg fa-star-o"></i></a>
                                         </div>
                                     </td>
-                                    <td class="align-middle">
-                                        <div><a href="#">Virtual intermediate portal</a></div><span>Last Edited by:
-                                            Gregoria
-                                            Hagenes <br>Friday, 12 October, 2018</span>
-                                    </td>
+                                    <!-- <td class="align-middle">
+                                        <div class="avatar-image avatar-image--loaded">
+                                            <div class="avatar avatar--md avatar-image__image">
+                                                <div class="avatar__content"><img
+                                                        src="https://bootdey.com/img/Content/avatar/avatar1.png"></div>
+                                            </div>
+                                        </div>
+                                    </td> -->
                                     <td class="align-middle"><span class="badge badge-success badge-pill">Active</span>
                                     </td>
                                     <td class="align-middle">
@@ -334,7 +348,7 @@
                                             <div class="progress-bar" role="progressbar" aria-valuenow="25"
                                                 aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
                                         </div>
-                                        <div>Tasks Completed:<span class="text-inverse">36/94</span></div>
+                                        <div><span class="text-inverse">36/94</span></div>
                                     </td>
                                     <td class="align-middle">
                                         <div class="avatar-image avatar-image--loaded">
@@ -369,19 +383,22 @@
                                                     class="fa fa-fw fa-lg fa-star-o"></i></a>
                                         </div>
                                     </td>
-                                    <td class="align-middle">
-                                        <div><a href="#">Visionary client-server hardware</a></div><span>Last Edited by:
-                                            Haskell Mills <br>Monday, 12 July, 2018</span>
-                                    </td>
-                                    <td class="align-middle"><span
-                                            class="badge badge-danger badge-pill">Suspended</span>
+                                    <!-- <td class="align-middle">
+                                        <div class="avatar-image avatar-image--loaded">
+                                            <div class="avatar avatar--md avatar-image__image">
+                                                <div class="avatar__content"><img
+                                                        src="https://bootdey.com/img/Content/avatar/avatar1.png"></div>
+                                            </div>
+                                        </div>
+                                    </td> -->
+                                    <td class="align-middle"><span class="badge badge-success badge-pill">Active</span>
                                     </td>
                                     <td class="align-middle">
                                         <div class="mb-2 progress" style="height: 5px;">
                                             <div class="progress-bar" role="progressbar" aria-valuenow="50"
                                                 aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
                                         </div>
-                                        <div>Tasks Completed:<span class="text-inverse">36/94</span></div>
+                                        <div><span class="text-inverse">36/94</span></div>
                                     </td>
                                     <td class="align-middle">
                                         <div class="avatar-image avatar-image--loaded">
@@ -410,290 +427,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="align-middle">
-                                        <div class="text-inverse"><a href="#"><i
-                                                    class="fa fa-fw fa-lg fa-star-o"></i></a>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div><a href="#">Focused context-sensitive hardware</a></div><span>Last Edited
-                                            by:
-                                            Rey Hansen <br>Friday, 12 May, 2018</span>
-                                    </td>
-                                    <td class="align-middle"><span class="badge badge-warning badge-pill">Waiting</span>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="mb-2 progress" style="height: 5px;">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                                        </div>
-                                        <div>Tasks Completed:<span class="text-inverse">36/94</span></div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="avatar-image avatar-image--loaded">
-                                            <div class="avatar avatar--md avatar-image__image">
-                                                <div class="avatar__content"><img
-                                                        src="https://bootdey.com/img/Content/avatar/avatar7.png"></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle text-right">
-                                        <div class="btn-group">
-                                            <button type="button" aria-haspopup="true" aria-expanded="false"
-                                                class="dropdown-toggle btn btn-link"><i class="fa fa-gear"></i></button>
-                                            <div tabindex="-1" role="menu" aria-hidden="true"
-                                                class="dropdown-menu dropdown-menu-right">
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-folder-open mr-2"></i>View</button>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-ticket mr-2"></i>Add Task</button>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-paperclip mr-2"></i>Add Files</button>
-                                                <div tabindex="-1" class="dropdown-divider"></div>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-trash mr-2"></i>Delete</button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-middle">
-                                        <div class="text-inverse"><a href="#"><i
-                                                    class="fa fa-fw fa-lg fa-star-o"></i></a>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div><a href="#">Advanced mission-critical groupware</a></div><span>Last Edited
-                                            by:
-                                            Carey Runolfsson <br>Friday, 12 May, 2018</span>
-                                    </td>
-                                    <td class="align-middle"><span
-                                            class="badge badge-secondary badge-pill">Paused</span>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="mb-2 progress" style="height: 5px;">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="90"
-                                                aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
-                                        </div>
-                                        <div>Tasks Completed:<span class="text-inverse">36/94</span></div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="avatar-image avatar-image--loaded">
-                                            <div class="avatar avatar--md avatar-image__image">
-                                                <div class="avatar__content"><img
-                                                        src="https://bootdey.com/img/Content/avatar/avatar1.png"></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle text-right">
-                                        <div class="btn-group">
-                                            <button type="button" aria-haspopup="true" aria-expanded="false"
-                                                class="dropdown-toggle btn btn-link"><i class="fa fa-gear"></i></button>
-                                            <div tabindex="-1" role="menu" aria-hidden="true"
-                                                class="dropdown-menu dropdown-menu-right">
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-folder-open mr-2"></i>View</button>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-ticket mr-2"></i>Add Task</button>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-paperclip mr-2"></i>Add Files</button>
-                                                <div tabindex="-1" class="dropdown-divider"></div>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-trash mr-2"></i>Delete</button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-middle">
-                                        <div class="text-inverse"><a href="#"><i
-                                                    class="fa fa-fw fa-lg fa-star-o"></i></a>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div><a href="#">De-engineered tertiary matrix</a></div><span>Last Edited by:
-                                            Jacynthe Beier <br>Wednesday, 12 May, 2018</span>
-                                    </td>
-                                    <td class="align-middle"><span class="badge badge-success badge-pill">Active</span>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="mb-2 progress" style="height: 5px;">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="25"
-                                                aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
-                                        </div>
-                                        <div>Tasks Completed:<span class="text-inverse">36/94</span></div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="avatar-image avatar-image--loaded">
-                                            <div class="avatar avatar--md avatar-image__image">
-                                                <div class="avatar__content"><img
-                                                        src="https://bootdey.com/img/Content/avatar/avatar2.png"></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle text-right">
-                                        <div class="btn-group">
-                                            <button type="button" aria-haspopup="true" aria-expanded="false"
-                                                class="dropdown-toggle btn btn-link"><i class="fa fa-gear"></i></button>
-                                            <div tabindex="-1" role="menu" aria-hidden="true"
-                                                class="dropdown-menu dropdown-menu-right">
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-folder-open mr-2"></i>View</button>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-ticket mr-2"></i>Add Task</button>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-paperclip mr-2"></i>Add Files</button>
-                                                <div tabindex="-1" class="dropdown-divider"></div>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-trash mr-2"></i>Delete</button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-middle">
-                                        <div class="text-inverse"><a href="#"><i
-                                                    class="fa fa-fw fa-lg fa-star-o"></i></a>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div><a href="#">Progressive 4th generation emulation</a></div><span>Last Edited
-                                            by:
-                                            Baby Robel <br>Thursday, 12 March, 2018</span>
-                                    </td>
-                                    <td class="align-middle"><span
-                                            class="badge badge-danger badge-pill">Suspended</span>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="mb-2 progress" style="height: 5px;">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="50"
-                                                aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
-                                        </div>
-                                        <div>Tasks Completed:<span class="text-inverse">36/94</span></div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="avatar-image avatar-image--loaded">
-                                            <div class="avatar avatar--md avatar-image__image">
-                                                <div class="avatar__content"><img
-                                                        src="https://bootdey.com/img/Content/avatar/avatar3.png"></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle text-right">
-                                        <div class="btn-group">
-                                            <button type="button" aria-haspopup="true" aria-expanded="false"
-                                                class="dropdown-toggle btn btn-link"><i class="fa fa-gear"></i></button>
-                                            <div tabindex="-1" role="menu" aria-hidden="true"
-                                                class="dropdown-menu dropdown-menu-right">
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-folder-open mr-2"></i>View</button>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-ticket mr-2"></i>Add Task</button>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-paperclip mr-2"></i>Add Files</button>
-                                                <div tabindex="-1" class="dropdown-divider"></div>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-trash mr-2"></i>Delete</button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-middle">
-                                        <div class="text-inverse"><a href="#"><i
-                                                    class="fa fa-fw fa-lg fa-star-o"></i></a>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div><a href="#">Sharable even-keeled access</a></div><span>Last Edited by:
-                                            Ethan
-                                            Little <br>Saturday, 12 March, 2018</span>
-                                    </td>
-                                    <td class="align-middle"><span class="badge badge-warning badge-pill">Waiting</span>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="mb-2 progress" style="height: 5px;">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                                aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                                        </div>
-                                        <div>Tasks Completed:<span class="text-inverse">36/94</span></div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="avatar-image avatar-image--loaded">
-                                            <div class="avatar avatar--md avatar-image__image">
-                                                <div class="avatar__content"><img
-                                                        src="https://bootdey.com/img/Content/avatar/avatar4.png"></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle text-right">
-                                        <div class="btn-group">
-                                            <button type="button" aria-haspopup="true" aria-expanded="false"
-                                                class="dropdown-toggle btn btn-link"><i class="fa fa-gear"></i></button>
-                                            <div tabindex="-1" role="menu" aria-hidden="true"
-                                                class="dropdown-menu dropdown-menu-right">
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-folder-open mr-2"></i>View</button>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-ticket mr-2"></i>Add Task</button>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-paperclip mr-2"></i>Add Files</button>
-                                                <div tabindex="-1" class="dropdown-divider"></div>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-trash mr-2"></i>Delete</button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-middle">
-                                        <div class="text-inverse"><a href="#"><i
-                                                    class="fa fa-fw fa-lg fa-star-o"></i></a>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div><a href="#">Optimized responsive attitude</a></div><span>Last Edited by:
-                                            Kolby
-                                            Batz <br>Saturday, 12 February, 2018</span>
-                                    </td>
-                                    <td class="align-middle"><span
-                                            class="badge badge-secondary badge-pill">Paused</span>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="mb-2 progress" style="height: 5px;">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="90"
-                                                aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
-                                        </div>
-                                        <div>Tasks Completed:<span class="text-inverse">36/94</span></div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="avatar-image avatar-image--loaded">
-                                            <div class="avatar avatar--md avatar-image__image">
-                                                <div class="avatar__content"><img
-                                                        src="https://bootdey.com/img/Content/avatar/avatar5.png"></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle text-right">
-                                        <div class="btn-group">
-                                            <button type="button" aria-haspopup="true" aria-expanded="false"
-                                                class="dropdown-toggle btn btn-link"><i class="fa fa-gear"></i></button>
-                                            <div tabindex="-1" role="menu" aria-hidden="true"
-                                                class="dropdown-menu dropdown-menu-right">
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-folder-open mr-2"></i>View</button>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-ticket mr-2"></i>Add Task</button>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-paperclip mr-2"></i>Add Files</button>
-                                                <div tabindex="-1" class="dropdown-divider"></div>
-                                                <button type="button" tabindex="0" class="dropdown-item"><i
-                                                        class="fa fa-fw fa-trash mr-2"></i>Delete</button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                        
                             </tbody>
                         </table>
                     </div>

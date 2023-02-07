@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
+
 <div class="container">
     <div id="content" class="content p-0">
         <div class="profile-header">
@@ -20,18 +21,19 @@
                 </div>
     
                 <div class="profile-header-info">
-                    <h4 class="m-t-sm">John Doe</h4>
-                    <p class="m-b-sm">UXUI + Frontend Developer</p>
-                    <a href="#" class="btn btn-xs btn-info mb-4">Edit Profile</a>
+                    <h4 class="m-t-sm">Đoàn Trung Dũng</h4>
+                    <p class="m-b-sm">HUST</p>
+                    <a href="#" class="btn btn-xs btn-info mb-4">Chỉnh sửa</a>
                 </div>
             </div>
-    
+            
                   <ul class="profile-header-tab nav nav-tabs">
-                     <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-with-timeline-posts" target="__blank" class="nav-link_">POSTS</a></li>
-                     <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-about" target="__blank" class="nav-link_">ABOUT</a></li>
+                    
+                     <!-- <li class="nav-item"><a href="home.php" target="__blank" class="nav-link_">Home</a></li> -->
+                     <!-- <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-about" target="__blank" class="nav-link_">ABOUT</a></li>
                      <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/profile-photos" target="__blank" class="nav-link_">PHOTOS</a></li>
                      <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/profile-videos" target="__blank" class="nav-link_">VIDEOS</a></li>
-                     <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-friend-list" target="__blank" class="nav-link_ active show">FRIENDS</a></li>
+                     <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-friend-list" target="__blank" class="nav-link_ active show">FRIENDS</a></li> -->
                   </ul>
         </div>
     
@@ -144,40 +146,40 @@
     
                 <div class="col-md-4 hidden-xs hidden-sm">
                     <ul class="profile-info-list">
-                        <li class="title">PERSONAL INFORMATION</li>
+                        <li class="title">Thông tin người dùng</li>
                         <li>
-                            <div class="field">Occupation:</div>
-                            <div class="value">UXUI / Frontend Developer</div>
+                            <div class="field">Học vấn:</div>
+                            <div class="value">HUST</div>
                         </li>
                         <li>
-                            <div class="field">Skills:</div>
-                            <div class="value">C++, PHP, HTML5, CSS, jQuery, MYSQL, Ionic, Laravel, Phonegap, Bootstrap, Angular JS, Angular JS, Asp.net</div>
+                            <div class="field">Kỹ năng:</div>
+                            <div class="value">Không có kỹ năng gì cả</div>
                         </li>
                         <li>
-                            <div class="field">Birth of Date:</div>
-                            <div class="value">1989/11/04</div>
+                            <div class="field">Ngày sinh:</div>
+                            <div class="value">2001/10/19</div>
                         </li>
                         <li>
-                            <div class="field">Country:</div>
-                            <div class="value">San Francisco</div>
+                            <div class="field">Quốc gia:</div>
+                            <div class="value">Việt Nam</div>
                         </li>
                         <li>
-                            <div class="field">Address:</div>
+                            <div class="field">Địa chỉ:</div>
                             <div class="value">
                                 <address class="m-b-0">
-                                    Twitter, Inc.<br />
-                                    1355 Market Street, Suite 900<br />
-                                    San Francisco, CA 94103
+                                    Vĩnh Trai<br />
+                                    Lương Tài<br />
+                                    Bắc Ninh
                                 </address>
                             </div>
                         </li>
                         <li>
-                            <div class="field">Phone No.:</div>
+                            <div class="field">Số điện thoại:</div>
                             <div class="value">
-                                (123) 456-7890
+                                0988716998
                             </div>
                         </li>
-                        <li class="title">FRIEND LIST (9)</li>
+                        <li class="title">Danh sách bạn bè</li>
                         <li class="img-list">
                             <a href="#" class="m-b-5"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" /></a>
                             <a href="#" class="m-b-5"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" /></a>
