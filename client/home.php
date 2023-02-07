@@ -41,7 +41,7 @@
 	                    <input type="submit" value="Search" />
                     </form>
                 </div>
-                <div class="mb-4">
+                <!-- <div class="mb-4">
                     <div class="small mb-3">Favorites</div>
                     <ul class="nav flex-column nav-pills">
                         <li class="nav-item"><a href="#" class="nav-link active"><i
@@ -49,7 +49,7 @@
                         <li class="nav-item"><a href="#" class="nav-link"><i
                                     class="fa fa-fw fa-calendar-o mr-2"></i>Calendar</a></li>
                     </ul>
-                </div>
+                </div> -->
                 <!-- <div class="mb-4">
                     <div class="small mb-3">Projects</div>
                     <ul class="nav flex-column nav-pills">
@@ -67,29 +67,11 @@
                                 Project</a></li>
                     </ul>
                 </div> -->
-                <!-- <div class="mb-4">
-                    <div class="small mb-3">People</div>
+                <div class="mb-4">
+                    <!-- <div class="small mb-3">People</div> -->
                     <ul class="nav flex-column nav-pills">
                         <li class="nav-item">
-                            <a href="#" class="d-flex nav-link">
-                                <div class="media">
-                                    <div class="mr-3 align-self-center media-left media-middle">
-                                        <div class="avatar-image avatar-image--loaded">
-                                            <div class="avatar avatar--md avatar-image__image"
-                                                    <div class="avatar__content">
-                                                            <img src="">
-                                                    </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="mt-0">Harvey Blick</div><span class="small">Pennsylvania, SD</span>
-                                    </div>
-                                </div><i class="fa fa-fw fa-circle text-success ml-auto align-self-center ml-2"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="d-flex nav-link">
+                            <a href="profile.php" class="d-flex nav-link">
                                 <div class="media">
                                     <div class="mr-3 align-self-center media-left media-middle">
                                         <div class="avatar-image avatar-image--loaded">
@@ -103,30 +85,11 @@
                                         <div class="mt-0">Hobart Hintz</div><span class="small">North Carolina,
                                             CT</span>
                                     </div>
-                                </div><i class="fa fa-fw fa-circle text-warning ml-auto align-self-center ml-2"></i>
+                                <!-- </div><i class="fa fa-fw fa-circle text-warning ml-auto align-self-center ml-2"></i> -->
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="d-flex nav-link">
-                                <div class="media">
-                                    <div class="mr-3 align-self-center media-left media-middle">
-                                        <div class="avatar-image avatar-image--loaded">
-                                            <div class="avatar avatar--md avatar-image__image">
-                                                <div class="avatar__content"><img
-                                                        src="https://bootdey.com/img/Content/avatar/avatar3.png"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="mt-0">Elmore Cummerata</div><span class="small">Michigan, NC</span>
-                                    </div>
-                                </div><i class="fa fa-fw fa-circle text-danger ml-auto align-self-center ml-2"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-fw fa-plus mr-2"></i>Add New
-                                People</a></li>
                     </ul>
-                </div> -->
+                </div>
             </div>
             <div class="col-lg-9">
                 <div class="d-flex flex-column flex-md-row mb-3 mb-md-0">
