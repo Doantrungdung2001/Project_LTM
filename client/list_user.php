@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>List User</title>
+  <title>Danh sách người dùng</title>
   <link rel="stylesheet" href="assets/css/list_user.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
     integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
@@ -14,7 +14,30 @@
 </head>
 
 <body>
-  
+<div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="mb-4">
+                    <div class="small mb-3">Tìm kiếm</div>
+                    <div class="input-group">
+                        <input placeholder="Tìm kiếm hình ảnh..." type="text" class="form-control">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="col-lg-9">
+                <div class="d-flex flex-column flex-md-row mb-3 mb-md-0">
+                    <nav class="mr-auto d-flex align-items-center" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="active breadcrumb-item" aria-current="page"><a href="home.php"><i
+                                        class="fa fa-home"></i></a></li>
+                            <!-- <li class="active breadcrumb-item" aria-current="page">Projects List</li> -->
+                        </ol>
+                    </nav>
+                </div>  
+  </div>       
   <div class="container mt-3 mb-4">
     <div class="col-lg-9 mt-4 mt-lg-0">
       <div class="row">
@@ -23,9 +46,9 @@
             <table class="table manage-candidates-top mb-0">
               <thead>
                 <tr>
-                  <th>Candidate Name</th>
-                  <th class="text-center">Status</th>
-                  <th class="action text-right">Action</th>
+                  <th>Người dùng</th>
+                  <th class="text-center">Hình ảnh</th>
+                  <th class="action text-right">Hoạt động</th>
                 </tr>
               </thead>
               <tbody>

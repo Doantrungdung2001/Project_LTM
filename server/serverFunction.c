@@ -77,7 +77,7 @@ int registerUser(char *message, int socket)
     strcpy(username, token);
     token = strtok(NULL, "|");
     strcpy(password, token);
-    encryptPassword(password);
+    // encryptPassword(password);
 
     // Check username is existed ?
     sprintf(query, "SELECT * FROM users WHERE username = '%s' ",
@@ -241,16 +241,7 @@ int logoutUser(char *message, int socket)
 
     return 1;
 }
-// void encryptPassword(char *password)
-// {
-//     for (int i = 0; i < strlen(password); i++)
-//     {
-//         if ((int)password[i] > i)
-//         {
-//             password[i] = password[i] - i;
-//         }
-//     }
-// }
+
 
 
 
