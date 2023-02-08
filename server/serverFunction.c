@@ -14,7 +14,6 @@
 #include <termios.h>
 #include <pthread.h>
 #include "object.h"
-#include "colorCode.h"
 #include "linked_list.h"
 #include "protocol.h"
 #include "serverFunction.h"
@@ -116,7 +115,44 @@ void readUserFile(singleList *users) {
 	}
 	fclose(f);
 }
+// void readUserFile(singleList *users) {
+// 	char username[50], password[50];
+// 	int status;
+//     char query[BUFF_SIZE];
+// 	sprintf(query, "SELECT * from users ");
+//     if (mysql_query(con, query))
+//     {
+//         sprintf(serverMess, "%d|%s\n", QUERY_FAIL, mysql_error(con));
+//         send(socket, serverMess, strlen(serverMess), 0);
+//         return 0;
+//     }
+//     MYSQL_RES *result = mysql_store_result(con);
+//     if (mysql_num_rows(result) == 0)
+//     {
+//         // Push account into signing in account table
+//         sprintf(query, "INSERT INTO acount_using (username) VALUES ('%s')", username);
+//         mysql_query(con, query);
+//         sprintf(server_message, "%d|Successfully logged in|\n", LOGIN_SUCCESS);
+//         send(socket, server_message, sizeof(server_message), 0);
+//         return 1;
+//     }
+//     else
+//     {
+//                 sprintf(server_message, "%d|Your account is signing in other device|\n", USERNAME_IS_SIGNIN);
+//                 send(socket, server_message, sizeof(server_message), 0);
+//                 return 0;
+//             }
 
+// 		fscanf(f, "%d\n", &status);
+
+// 		user_struct *user = (user_struct *)malloc(sizeof(user_struct));
+// 		strcpy(user->user_name, username);
+// 		strcpy(user->password, password);
+// 		user->status = status;
+// 		insertEnd(users, user);
+// 	}
+// 	fclose(f);
+// }
 // Hàm kiểm tra username đã tồn tại chưa - OK
 int checkExistence(int type, singleList list, char *string) {
 	switch (type) {
@@ -170,6 +206,7 @@ void signUp(int sock, singleList *users, char *name, char *pass) {
 	char buff[BUFF_SIZE];
 	int size;
 	printf("USERNAME: \'%s\'\n", name);
+    printf("PASS: \'%s\'\n", pass);
 	if (checkExistence(1, *users, name) == 1) {
 		sendCode(sock, EXISTENCE_USERNAME);
 	}else {
@@ -405,18 +442,19 @@ void *handleThread(void *my_sock) {
 	user_struct *loginUser = NULL;
 
 	while (1) {
-		int n = readWithCheck(new_socket, buff, 1024);
+		int n = readWithCheck(new_socket, buff, BUFF_SIZE);
 		if(n <= 0 || strlen(buff) == 0) {
 			printf("Close request from sockfd = %d\n", new_socket);
 			close(new_socket);
 			return NULL;
 		}
-		char *opcode = strtok(buff, "*");
-		REQUEST = atoi(buff);
+        str_trim_lf(buff,strlen(buff));
+		char *opcode = strtok(buff,"|");
+		REQUEST = atoi(opcode);
 		switch (REQUEST) {
 		case REGISTER_REQUEST:
-			name = strtok(NULL, "*");
-			pass = strtok(NULL, "*");
+			name = strtok(NULL,"|");
+			pass = strtok(NULL,"|");
 			printf("[+]REGISTER_REQUEST\n");
 			signUp(new_socket, &users, name, pass);
 			saveUsers(users);

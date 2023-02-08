@@ -6,12 +6,11 @@ typedef struct node_t{
 } node;
 
 typedef struct single_t{
-  node * root;
-  node * cur;
-  node * prev;
-  node * tail;
+	node * root;
+	node * cur;
+	node * prev;
+	node * tail;
 } singleList;
-
 
 typedef struct user_t
 {

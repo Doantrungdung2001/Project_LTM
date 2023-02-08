@@ -75,7 +75,7 @@ int main(int argc, char const *argv[])
 
   if (mysql_query(
           con,
-          "INSERT INTO users(username, password,status) VALUES('admin', '123456',1), ('dungdoan', '191001',0)"))
+          "INSERT INTO users(username, password,status) VALUES('admin', '123456',1), ('dungdoan', '191001',0),('abc', '111111',0)"))
   {
     fprintf(stderr, "%s\n", mysql_error(con));
     mysql_close(con);
@@ -107,14 +107,14 @@ int main(int argc, char const *argv[])
   }
   printf("%s\n", "Create table user_image succesfully ...");
 
-  // if (mysql_query(
-  //         con,
-  //         "INSERT INTO user_image() VALUES()"
-  // {
-  //   fprintf(stderr, "%s\n", mysql_error(con));
-  //   mysql_close(con);
-  //   exit(1);
-  // }
+  if (mysql_query(
+          con,
+          "INSERT INTO user_image(username,imagename,imagelink) VALUES('dungdoan','hanoi','image/hanoi.png'),('abc','hanoi','image/hanoi.jpg'),('dungdoan','ninhbinh','image/ninhbinh.jpg'),('admin','ninhbinh','image/ninh_binh.jpg')"))
+  {
+    fprintf(stderr, "%s\n", mysql_error(con));
+    mysql_close(con);
+    exit(1);
+  }
   mysql_close(con);
   exit(0);
 }
