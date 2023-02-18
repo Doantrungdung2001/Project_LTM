@@ -6,33 +6,33 @@
 /*
 Các hàm khởi tạo
 */
-void   createSingleList(singleList * list);
+void   createList(List * list);
 node * makeNewNode(void *e);
 
 /*
 Thêm 1 node
 */
 
-node * insertAfter(singleList * list, void *e);
-node * insertBegin(singleList * list, void *e);
-node * insertEnd(singleList * list, void *e);
-node * insertAtPosition(singleList * list, void *e, int n);
+node * insertAfter(List * list, void *e);
+node * insertBegin(List * list, void *e);
+node * insertEnd(List * list, void *e);
+node * insertAtPosition(List * list, void *e, int n);
 
 /*
 Xóa node
 */
 
-node * deleteBegin(singleList * list);
-node * deleteEnd(singleList * list);
-node * deleteAtPosition(singleList * list, int n);
-node * deleteSingleList(singleList * list);
+node * deleteBegin(List * list);
+node * deleteEnd(List * list);
+node * deleteAtPosition(List * list, int n);
+node * deleteList(List * list);
 
 
 /*
 Tất cả node
 */
-int    printUser(singleList list);
-int    printGroup(singleList list);
+int    printUser(List list);
+int    printGroup(List list);
 
 /*
 *
@@ -43,7 +43,7 @@ Chi tiết các hàm
 */
 
 // Tạo danh sách mới - OK 
-void createSingleList(singleList * list) {
+void createList(List * list) {
   (*list).root = (*list).prev = (*list).cur = (*list).tail  = NULL;
 }
 
@@ -57,7 +57,7 @@ node * makeNewNode(void *e)
 }
 
 // Thêm vào cuối danh sách - OK
-node * insertEnd(singleList *list,void *e)
+node * insertEnd(List *list,void *e)
 {
 	node * newNode = makeNewNode(e);
 	if((*list).root == NULL)
@@ -73,7 +73,7 @@ node * insertEnd(singleList *list,void *e)
 }
 
 // Thêm vào đầu danh sách - OK
-node * insertBegin(singleList * list, void *e)
+node * insertBegin(List * list, void *e)
 {
   node * newNode = makeNewNode(e);
   if ((*list).root == NULL)
@@ -89,7 +89,7 @@ node * insertBegin(singleList * list, void *e)
 }
 
 // Tinh tong list - OK
-int totalSingleList(singleList list) {
+int totalList(List list) {
   int i=0;
   list.cur = list.root;
 	while(list.cur != NULL)
@@ -101,7 +101,7 @@ int totalSingleList(singleList list) {
 }
 
 // Thêm vào vị trí - OK
-node * insertAtPosition(singleList * list,void *e,int n)
+node * insertAtPosition(List * list,void *e,int n)
 {
   node *newNode = makeNewNode(e);
   if((*list).root == NULL)
@@ -115,7 +115,7 @@ node * insertAtPosition(singleList * list,void *e,int n)
           insertBegin(list,newNode->element);
           return (*list).cur;
         }
-      if(n > totalSingleList(*list))
+      if(n > totalList(*list))
         {
           insertEnd(list,newNode->element);
           return (*list).cur;
@@ -138,7 +138,7 @@ node * insertAtPosition(singleList * list,void *e,int n)
 }
 
 // Xóa node đầu tiên - OK
-node * deleteBegin(singleList * list)
+node * deleteBegin(List * list)
 {
   if((*list).root != NULL)
 	{
@@ -150,7 +150,7 @@ node * deleteBegin(singleList * list)
 }
 
 // Xóa node cuối cùng - OK
-node * deleteEnd(singleList *list)
+node * deleteEnd(List *list)
 {
   if((*list).root != NULL)
     {
@@ -170,13 +170,13 @@ node * deleteEnd(singleList *list)
 }
 
 // Xóa tất cả - OK
-node * deleteSingleList(singleList * list)
+node * deleteList(List * list)
 {
   while((*list).root != NULL) deleteBegin(list);
 }
 
 // Luu thong tin user - OK
-int saveUsers(singleList users){
+int saveUsers(List users){
   user_struct* user = NULL;
 
   FILE *fp = fopen("./storage/user.txt", "w");

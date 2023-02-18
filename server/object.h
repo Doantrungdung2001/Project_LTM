@@ -10,7 +10,7 @@ typedef struct single_t{
 	node * cur;
 	node * prev;
 	node * tail;
-} singleList;
+}List;
 
 typedef struct user_t
 {

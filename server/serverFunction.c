@@ -10,6 +10,7 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <unistd.h>
 #include <termios.h>
 #include <pthread.h>
@@ -25,15 +26,20 @@
 #define MAX_CLIENTS 10
 #define REQUEST_SIZE 1024
 #define BUFF_DATA 4096
-// singleList users;
-singleList users;
+#define SERVER_NAME "127.0.0.1"
+#define USERNAME "root"
+#define PASSWORD ""
+MYSQL *con;
+
+List users;
 client_t *clients[MAX_CLIENTS];
 pthread_mutex_t clients_mutex = PTHREAD_MUTEX_INITIALIZER;
 int count_send = 0;
 int count_write = 0;
 char main_name[BUFF_SIZE] = "";
 int num_client = 0;
-extern MYSQL *con;
+
+    
 // check if username is logged in
 int isLogged(char *user_name) {
 	for(int i = 0; i < MAX_CLIENTS; i++) {
@@ -74,74 +80,36 @@ void queue_delete(char *username) {
 
 // In ra danh sách client đang kết nối - OK
 void print_queue() {
-	printf("[+]List clients: \n");
+	printf("[+] List clients: \n");
 	for (int i = 0; i < num_client; i++) {
 		printf("%s\n", clients[i]->name);
 	}
 }
 
 // Đọc file chứa thông tin user rồi lưu vào danh sách liên kết userList - OK
-void readUserFile(singleList *users) {
-	char username[50], password[50];
-	int status;
-	FILE *f = fopen("./storage/user.txt", "r");
-
-	if (f == NULL) {
-		perror("[-]Error while opening the file.\n");
-		exit(EXIT_FAILURE);
-	}
-
-	while (1) {
-		char c = fgetc(f);
-		if (c != EOF) {
-			int res = fseek(f, -1, SEEK_CUR);
-		}else {
-			break;
-		}
-
-		fgets(username, 50, f);
-		username[strlen(username) - 1] = '\0';
-
-		fgets(password, 50, f);
-		password[strlen(password) - 1] = '\0';
-
-		fscanf(f, "%d\n", &status);
-
-		user_struct *user = (user_struct *)malloc(sizeof(user_struct));
-		strcpy(user->user_name, username);
-		strcpy(user->password, password);
-		user->status = status;
-		insertEnd(users, user);
-	}
-	fclose(f);
-}
 // void readUserFile(singleList *users) {
 // 	char username[50], password[50];
 // 	int status;
-//     char query[BUFF_SIZE];
-// 	sprintf(query, "SELECT * from users ");
-//     if (mysql_query(con, query))
-//     {
-//         sprintf(serverMess, "%d|%s\n", QUERY_FAIL, mysql_error(con));
-//         send(socket, serverMess, strlen(serverMess), 0);
-//         return 0;
-//     }
-//     MYSQL_RES *result = mysql_store_result(con);
-//     if (mysql_num_rows(result) == 0)
-//     {
-//         // Push account into signing in account table
-//         sprintf(query, "INSERT INTO acount_using (username) VALUES ('%s')", username);
-//         mysql_query(con, query);
-//         sprintf(server_message, "%d|Successfully logged in|\n", LOGIN_SUCCESS);
-//         send(socket, server_message, sizeof(server_message), 0);
-//         return 1;
-//     }
-//     else
-//     {
-//                 sprintf(server_message, "%d|Your account is signing in other device|\n", USERNAME_IS_SIGNIN);
-//                 send(socket, server_message, sizeof(server_message), 0);
-//                 return 0;
-//             }
+// 	FILE *f = fopen("./storage/user.txt", "r");
+
+// 	if (f == NULL) {
+// 		perror("[-] Error while opening the file.\n");
+// 		exit(EXIT_FAILURE);
+// 	}
+
+// 	while (1) {
+// 		char c = fgetc(f);
+// 		if (c != EOF) {
+// 			int res = fseek(f, -1, SEEK_CUR);
+// 		}else {
+// 			break;
+// 		}
+
+// 		fgets(username, 50, f);
+// 		username[strlen(username) - 1] = '\0';
+
+// 		fgets(password, 50, f);
+// 		password[strlen(password) - 1] = '\0';
 
 // 		fscanf(f, "%d\n", &status);
 
@@ -153,8 +121,74 @@ void readUserFile(singleList *users) {
 // 	}
 // 	fclose(f);
 // }
+// Đọc dữ liệu từ database
+void readUsers(){
+	MYSQL mysql; 
+
+    if(mysql_init(&mysql)==NULL) { 
+        printf("\nInitialization error\n"); 
+        return; 
+    } 
+    mysql_real_connect(&mysql,SERVER_NAME,USERNAME,PASSWORD,"share_image",0,NULL,0); 
+    char query[BUFF_SIZE];
+	sprintf(query, "SELECT username,password,status from users");
+    if (mysql_query(&mysql, query))
+    {
+        printf("%d|%s\n", QUERY_FAILD, mysql_error(&mysql));
+        return;
+    }
+	MYSQL_RES *result = mysql_store_result(&mysql);
+	user_struct *user;
+	while(1){
+		MYSQL_ROW row = mysql_fetch_row(result);
+		if (row == NULL)break;
+		user = malloc(sizeof(user_struct));
+		strcpy(user->user_name,row[0]);
+		strcpy(user->password,row[1]);
+		user->status = atoi(row[2]);
+		insertEnd(&users, user);
+	}
+}
+// Hàm cập nhật trạng thái
+void UpdateStatus(char *username){
+	MYSQL mysql; 
+
+    if(mysql_init(&mysql)==NULL) { 
+        printf("\nInitialization error\n"); 
+        return; 
+    } 
+    mysql_real_connect(&mysql,SERVER_NAME,USERNAME,PASSWORD,"share_image",0,NULL,0); 
+    char query[BUFF_SIZE];
+	sprintf(query,"UPDATE users set status = '0' WHERE username = '%s'",username);
+	printf("\n%s",query);
+    if (mysql_query(&mysql, query))
+    {
+        printf("%d|%s\n", QUERY_FAILD, mysql_error(&mysql));
+        return;
+    }
+}
+// ham tim path
+char *FindImagePath(char *username,char* filename){
+	MYSQL mysql; 
+
+    if(mysql_init(&mysql)==NULL) { 
+        printf("\nInitialization error\n"); 
+        return NULL; 
+    } 
+    mysql_real_connect(&mysql,SERVER_NAME,USERNAME,PASSWORD,"share_image",0,NULL,0); 
+    char query[BUFF_SIZE];
+	sprintf(query, "SELECT imagelink from user_image where username = '%s' and imagename = '%s'",username,filename);
+    if (mysql_query(&mysql, query))
+    {
+        printf("%d|%s\n", QUERY_FAILD, mysql_error(&mysql));
+        return NULL;
+    }
+	MYSQL_RES *result = mysql_store_result(&mysql);
+	MYSQL_ROW row = mysql_fetch_row(result);
+	return row[0];
+}
 // Hàm kiểm tra username đã tồn tại chưa - OK
-int checkExistence(int type, singleList list, char *string) {
+int checkExistence(int type, List list, char *string) {
 	switch (type) {
 	// Check user
 	case 1: {
@@ -173,13 +207,13 @@ int checkExistence(int type, singleList list, char *string) {
 	break;
 
 	default:
-		printf("[-]Type chua hop le !! (1,2 or 3)\n");
+		printf("[-] Type chua hop le !! (1,2 or 3)\n");
 		break;
 	}
 }
 
 // Tìm kiếm user theo username - OK
-void *findByName(int type, singleList list, char string[50]) {
+void *findByName(int type, List list, char string[50]) {
 	switch (type) {
 	case 1: {
 			int i = 0;
@@ -196,13 +230,13 @@ void *findByName(int type, singleList list, char string[50]) {
 		}
 		break;
 	default:
-		printf("[-]Type chua hop le !! (1,2 or 3)\n");
+		printf("[-] Type chua hop le !! (1,2 or 3)\n");
 		break;
 	}
 }
 
 // Hàm kiểm tra đăng ký - OK
-void signUp(int sock, singleList *users, char *name, char *pass) {
+void signUp(int sock, List *users, char *name, char *pass) {
 	char buff[BUFF_SIZE];
 	int size;
 	printf("USERNAME: \'%s\'\n", name);
@@ -218,10 +252,33 @@ void signUp(int sock, singleList *users, char *name, char *pass) {
 		sendCode(sock, REGISTER_SUCCESS);
 		printf("REGISTER SUCCESS\n");
 	}
+	// them vao database
+	MYSQL mysql; 
+    if(mysql_init(&mysql)==NULL) { 
+        printf("\nInitialization error\n"); 
+        return; 
+    } 
+    mysql_real_connect(&mysql,SERVER_NAME,USERNAME,PASSWORD,"share_image",0,NULL,0); 
+    char query[BUFF_SIZE];
+	sprintf(query, "INSERT INTO users(username, password,status) VALUES('%s','%s','%d')",name,pass,1);
+    if (mysql_query(&mysql, query))
+    {
+        printf("%d|%s\n", QUERY_FAILD, mysql_error(&mysql));
+        return;
+    }
+	char dirname[255];
+	sprintf(dirname,"image/%s",name);
+	int check = mkdir(dirname,S_IRWXU);
+	if (!check)
+		printf("Folder created\n");
+	else {
+		printf("Unable to create folder\n");
+		exit(1);
+	}
 }
 
 // Hàm kiểm tra đăng nhập - OK
-int signIn(int sock, singleList users, user_struct **loginUser, char *name, char *pass) {
+int signIn(int sock, List users, user_struct **loginUser, char *name, char *pass) {
 	if(isLogged(name) == 1) {
 		sendCode(sock, IS_CURRENTLY_LOGGED);
 		printf("[-] LOGIN FAILED\n");
@@ -245,7 +302,7 @@ int signIn(int sock, singleList users, user_struct **loginUser, char *name, char
 		}
 	}else {
 		sendCode(sock, LOGIN_FAILED);
-		printf("[-] LOGIN FAILED\n");
+		printf("[-]  LOGIN FAILED\n");
 		return 0;
 	}
 }
@@ -290,11 +347,11 @@ void send_message_to_sender(char *file_path, char *username) {
 			if(remove(file_path) == 0){
 				printf("[+] DELETED FILE SUCCESS: %s\n", file_path);
 			}else{
-				printf("[-] DELETED FILE FAILED: %s\n", file_path);
+				printf("[-]  DELETED FILE FAILED: %s\n", file_path);
 			}
 			if(count_send == count_write) {
 				count_send = count_write = 0;
-				printf("[+]SEND TO %s DONE\n", clients[i]->name);
+				printf("[+] SEND TO %s DONE\n", clients[i]->name);
 				break;
 			}
 		}
@@ -308,7 +365,7 @@ void receiveUploadedFileServer(int sock, char filePath[200]){
 }
 // In ra thông điệp request - OK
 void printRequest(char *request){
-	printf(FG_GREEN "[+]REQUEST: %s\n" NORMAL, request);
+	printf(FG_GREEN "[+] REQUEST: %s\n" NORMAL, request);
 }
 
 // Gửi thông điệp không gửi được báo lỗi - OK
@@ -317,7 +374,7 @@ void sendWithCheck(int sock, char buff[BUFF_SIZE], int length) {
 	sendByte = send(sock, buff, length, 0);
 	if (sendByte > 0) {
 	}else {
-		printf("[-]Connection is interrupted\n");
+		printf("[-] Connection is interrupted\n");
 		exit(0);
 	}
 }
@@ -336,7 +393,7 @@ int readWithCheck(int sock, char buff[BUFF_SIZE], int length) {
 void *SendFile(int new_socket, char *fname) {
 	FILE *fp = fopen(fname, "rb");
 	if (fp == NULL) {
-		printf("[-]File open error");
+		printf("[-] File open error");
 	}
 	fseek(fp, 0, SEEK_END);
 	int size = ftell(fp);
@@ -347,11 +404,11 @@ void *SendFile(int new_socket, char *fname) {
 	send(new_socket, &size, sizeof(size), 0);
 	while ((n = fread(sendline, 1, BUFF_DATA, fp)) > 0) {
 		if (n != BUFF_DATA && ferror(fp)) {
-			perror("[-]Read File Error");
+			perror("[-] Read File Error");
 			exit(1);
 		}
 		if (send(new_socket, sendline, n, 0) == -1) {
-			perror("[-]Can't send file");
+			perror("[-] Can't send file");
 			exit(1);
 		}
 		total += n;
@@ -361,35 +418,35 @@ void *SendFile(int new_socket, char *fname) {
 			break;
 		}
 	}
-	printf(FG_GREEN "[+]File OK....Completed" NORMAL "\n");
-	printf(FG_GREEN "[+]TOTAL SEND: %d\n" NORMAL, total);
+	printf(FG_GREEN "[+] File OK....Completed" NORMAL "\n");
+	printf(FG_GREEN "[+] TOTAL SEND: %d\n" NORMAL, total);
 }
 
 // Hàm nhận file vào lưu vào thư mục chứa - OK
-int receiveUploadedFile(int sock, char filePath[200]) {
+int receiveUploadedFile(int sock, char filePath[255]) {
 	FILE *fp;
-	printf(FG_GREEN "[+]Receiving file..." NORMAL "\n");
+	printf(FG_GREEN "[+] Receiving file..." NORMAL "\n");
 	fp = fopen(filePath, "wb");
 	if (NULL == fp) {
-		printf("[-]Error opening file\n");
+		printf("[-] Error opening file\n");
 		return -1;
 	}
 	int sizeFileRecv = 0;
 	recv(sock, &sizeFileRecv, sizeof(sizeFileRecv), 0);
-	printf("[+]SIZE IMG: %d\n", sizeFileRecv);
+	printf("[+] SIZE IMG: %d\n", sizeFileRecv);
 	ssize_t n;
 	int total = 0;
 	char buff[BUFF_DATA] = {0};
 	while ((n = recv(sock, buff, BUFF_DATA, 0)) > 0) {
 		if (n == -1) {
-			perror("[-]Receive File Error");
+			perror("[-] Receive File Error");
 			exit(1);
 		}
 		// if (total + n >= sizeFileRecv) {
 		// 	n = sizeFileRecv - total;
 		// }
 		if (fwrite(buff, 1, n, fp) != n) {
-			perror("[-]Write File Error");
+			perror("[-] Write File Error");
 			exit(1);
 		}
 		total += n;
@@ -398,8 +455,8 @@ int receiveUploadedFile(int sock, char filePath[200]) {
 			break;
 		}
 	}
-	printf(FG_GREEN "[+]File OK....Completed" NORMAL "\n");
-	printf(FG_GREEN "[+]TOTAL RECV: %d\n" NORMAL, total);
+	printf(FG_GREEN "[+] File OK....Completed" NORMAL "\n");
+	printf(FG_GREEN "[+] TOTAL RECV: %d\n" NORMAL, total);
 	fclose(fp);
 	return 1;
 }
@@ -440,7 +497,7 @@ void *handleThread(void *my_sock) {
 	char buff[BUFF_SIZE];
 	char *name, *pass;
 	user_struct *loginUser = NULL;
-
+	readUsers(&users);
 	while (1) {
 		int n = readWithCheck(new_socket, buff, BUFF_SIZE);
 		if(n <= 0 || strlen(buff) == 0) {
@@ -455,47 +512,49 @@ void *handleThread(void *my_sock) {
 		case REGISTER_REQUEST:
 			name = strtok(NULL,"|");
 			pass = strtok(NULL,"|");
-			printf("[+]REGISTER_REQUEST\n");
+			printf("[+] REGISTER_REQUEST\n");
 			signUp(new_socket, &users, name, pass);
-			saveUsers(users);
+			// saveUsers(users);
 			break;
 		case LOGIN_REQUEST:
 			// nhan username va password
-			printf("[+]LOGIN_REQUEST\n");
-			name = strtok(NULL, "*");
-			pass = strtok(NULL, "*");
+			printf("[+] LOGIN_REQUEST\n");
+			name = strtok(NULL, "|");
+			pass = strtok(NULL, "|");
 			if (signIn(new_socket, users, &loginUser, name, pass) == 1) {
 				while (REQUEST != LOGOUT_REQUEST) {
 					char *username;
 					char *filename;
-					char file_path[200];
+					char file_path[255];
 					if(readWithCheck(new_socket, buff, REQUEST_SIZE) == 0) {
 						continue;
 					}
 					printRequest(buff);
 					char *opcode;
-					opcode = strtok(buff, "*");
+					opcode = strtok(buff, "|");
 					REQUEST = atoi(opcode);
 					switch (REQUEST) {
 					case FIND_IMG_REQUEST:
-						username = strtok(NULL, "*");
+						username = strtok(NULL, "|");
 						strcpy(main_name, username);
-						filename = strtok(NULL, "*");
+						filename = strtok(NULL, "|");
 						// gui yeu cau toi cac may con lai
 						send_message(username, filename);
 						count_send = num_client - 1;
-						printf("[+]SEND TO ALL : %s\n", filename);
+						printf("[+] SEND TO ALL : %s\n", filename);
 						break;
 					case FILE_WAS_FOUND:
-						username = strtok(NULL, "*");
-						printf("[+]FOUND FROM %s\n", username);  
+						username = strtok(NULL, "|");
+						filename = strtok(NULL, "|");
+						printf("[+] FOUND FROM %s\n", username);  
 						str_trim_lf(username, strlen(username));
-						sprintf(file_path, "./files/%s.jpg", username);
+						sprintf(file_path,"image/%s/%s",username,filename);
 						pthread_mutex_lock(&clients_mutex);
 						receiveUploadedFileServer(new_socket, file_path);
 						pthread_mutex_unlock(&clients_mutex);
-						printf("[+]AMAZING GOOD JOB\n");
+						printf("[+] AMAZING GOOD JOB\n");
 						send_message_to_sender(file_path, username);
+						
 						break;
 					case FILE_WAS_NOT_FOUND:
 						count_send--;
@@ -504,11 +563,13 @@ void *handleThread(void *my_sock) {
 						}
 						break;
 					case LOGOUT_REQUEST: // request code: 14
-						printf("[+]LOGOUT_REQUEST\n");
-						username = strtok(NULL, "*");
+						printf("[+] LOGOUT_REQUEST\n");
+						username = strtok(NULL, "|");
+						printf("\nusername:%s",username);
+						UpdateStatus(username);
 						queue_delete(username);
 						sendCode(new_socket, LOGOUT_SUCCESS);
-						printf("[+]LOGOUT SUCCESS\n");
+						printf("[+] LOGOUT SUCCESS\n");
 						memset(username, '\0', strlen(username) + 1);
 						loginUser = NULL;
 						break;

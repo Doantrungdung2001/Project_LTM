@@ -15,19 +15,18 @@
 #include <sys/stat.h>
 #include <time.h>
 #include <pthread.h>
+#include <mysql/mysql.h>
 
 #define PORT 8888
 #define BACKLOG 20
 #define BUFF_SIZE 1024
 #define MAX_CLIENTS 10
 #include "serverFunction.h"
-
 int main(int argc, char *argv[]) {
-	if (argc == 1) {
-		printf("Please input port number\n");
-		return 0;
-	}
-	int port = atoi(argv[1]);
+	// if (argc == 1) {
+	// 	printf("Please input port number\n");
+	// 	return 0;
+	// }
 	int opt = 1;
 	int server_fd, new_socket;
 	struct sockaddr_in address;
@@ -46,7 +45,7 @@ int main(int argc, char *argv[]) {
 	}
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
-	address.sin_port = htons(port);
+	address.sin_port = htons(PORT);
 
 	// Forcefully attaching socket to the port
 	if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0) {
@@ -57,6 +56,7 @@ int main(int argc, char *argv[]) {
 		perror("[-]Listen");
 		exit(EXIT_FAILURE);
 	}
+	readUsers();
 	while (1) {
 		pthread_t tid;
 

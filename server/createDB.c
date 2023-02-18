@@ -81,8 +81,7 @@ int main(int argc, char const *argv[])
     mysql_close(con);
     exit(1);
   }
-  // ****CREATE USER USING ACOUNT TABLE acount_using****
-  if (mysql_query(con, "DROP TABLE IF EXISTS acount_using"))
+  if (mysql_query(con, "DROP TABLE IF EXISTS user_image"))
   {
     fprintf(stderr, "%s\n", mysql_error(con));
     mysql_close(con);
@@ -90,16 +89,7 @@ int main(int argc, char const *argv[])
   }
   if (mysql_query(
           con,
-          "CREATE TABLE acount_using(id INT PRIMARY KEY AUTO_INCREMENT, username VARCHAR(255), connectsock INT)"))
-  {
-    fprintf(stderr, "%s\n", mysql_error(con));
-    mysql_close(con);
-    exit(1);
-  }
-  printf("%s\n", "Create table acount_using succesfully ...");
-  if (mysql_query(
-          con,
-          "CREATE TABLE user_image(id INT PRIMARY KEY AUTO_INCREMENT, username VARCHAR(255) UNIQUE, imagename VARCHAR(255), imagelink VARCHAR(255))"))
+          "CREATE TABLE user_image(id INT PRIMARY KEY AUTO_INCREMENT, username VARCHAR(255), imagename VARCHAR(255), imagelink VARCHAR(255))"))
   {
     fprintf(stderr, "%s\n", mysql_error(con));
     mysql_close(con);
@@ -109,7 +99,7 @@ int main(int argc, char const *argv[])
 
   if (mysql_query(
           con,
-          "INSERT INTO user_image(username,imagename,imagelink) VALUES('dungdoan','hanoi','image/hanoi.png'),('abc','hanoi','image/hanoi.jpg'),('dungdoan','ninhbinh','image/ninhbinh.jpg'),('admin','ninhbinh','image/ninh_binh.jpg')"))
+          "INSERT INTO user_image(username,imagename,imagelink) VALUES('dungdoan','hanoi','image/dungdoan/hanoi.png'),('abc','hanoi','image/abc/hanoi.jpg'),('dungdoan','ninhbinh','image/dungdoan/ninhbinh.jpg'),('admin','ninhbinh','image/admin/ninh_binh.jpg')"))
   {
     fprintf(stderr, "%s\n", mysql_error(con));
     mysql_close(con);
