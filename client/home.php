@@ -120,7 +120,7 @@
                                     <th class="align-middle bt-0">Yêu thích</th>
                                     <!-- <th class="align-middle bt-0">Hình ảnh</th> -->
                                     <th class="align-middle bt-0">Trạng thái</th>
-                                    <th class="align-middle bt-0">Số hình ảnh </th>
+                                    <th class="align-middle bt-0">Tên người dùng </th>
                                     <th class="align-middle bt-0">Người dùng</th>
                                     <th class="align-middle bt-0 text-right">Cài đặt</th>
                                 </tr>
@@ -143,11 +143,11 @@
                                     <td class="align-middle"><span class="badge badge-success badge-pill">Active</span>
                                     </td>
                                     <td class="align-middle">
-                                        <div class="mb-2 progress" style="height: 5px;">
+                                        <!-- <div class="mb-2 progress" style="height: 5px;">
                                             <div class="progress-bar" role="progressbar" aria-valuenow="25"
                                                 aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
-                                        </div>
-                                        <div><span class="text-inverse">36/94</span></div>
+                                        </div> -->
+                                        <div><span class="text-inverse">Đoàn Trung Dũng</span></div>
                                     </td>
                                     <td class="align-middle">
                                         <div class="avatar-image avatar-image--loaded">
@@ -194,11 +194,11 @@
                                         <span class="badge badge-success badge-pill">Active</span>
                                     </td>
                                     <td class="align-middle">
-                                        <div class="mb-2 progress" style="height: 5px;">
+                                        <!-- <div class="mb-2 progress" style="height: 5px;">
                                             <div class="progress-bar" role="progressbar" aria-valuenow="50"
                                                 aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
-                                        </div>
-                                        <div><span class="text-inverse">36/94</span></div>
+                                        </div> -->
+                                        <div><span class="text-inverse">Đoàn Trung Dũng</span></div>
                                     </td>
                                     <td class="align-middle">
                                         <div class="avatar-image avatar-image--loaded">
@@ -244,11 +244,11 @@
                                     <td class="align-middle"><span class="badge badge-success badge-pill">Active</span>
                                     </td>
                                     <td class="align-middle">
-                                        <div class="mb-2 progress" style="height: 5px;">
+                                        <!-- <div class="mb-2 progress" style="height: 5px;">
                                             <div class="progress-bar" role="progressbar" aria-valuenow="70"
                                                 aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                                        </div>
-                                        <div><span class="text-inverse">36/94</span></div>
+                                        </div> -->
+                                        <div><span class="text-inverse">Đoàn Trung Dũng</span></div>
                                     </td>
                                     <td class="align-middle">
                                         <div class="avatar-image avatar-image--loaded">
@@ -294,11 +294,11 @@
                                     <td class="align-middle"><span class="badge badge-success badge-pill">Active</span>
                                     </td>
                                     <td class="align-middle">
-                                        <div class="mb-2 progress" style="height: 5px;">
+                                        <!-- <div class="mb-2 progress" style="height: 5px;">
                                             <div class="progress-bar" role="progressbar" aria-valuenow="90"
                                                 aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
-                                        </div>
-                                        <div><span class="text-inverse">36/94</span></div>
+                                        </div> -->
+                                        <div><span class="text-inverse">Đoàn Trung Dũng</span></div>
                                     </td>
                                     <td class="align-middle">
                                         <div class="avatar-image avatar-image--loaded">
@@ -344,11 +344,11 @@
                                     <td class="align-middle"><span class="badge badge-success badge-pill">Active</span>
                                     </td>
                                     <td class="align-middle">
-                                        <div class="mb-2 progress" style="height: 5px;">
+                                        <!-- <div class="mb-2 progress" style="height: 5px;">
                                             <div class="progress-bar" role="progressbar" aria-valuenow="25"
                                                 aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
-                                        </div>
-                                        <div><span class="text-inverse">36/94</span></div>
+                                        </div> -->
+                                        <div><span class="text-inverse">Đoàn Trung Dũng</span></div>
                                     </td>
                                     <td class="align-middle">
                                         <div class="avatar-image avatar-image--loaded">
@@ -394,11 +394,11 @@
                                     <td class="align-middle"><span class="badge badge-success badge-pill">Active</span>
                                     </td>
                                     <td class="align-middle">
-                                        <div class="mb-2 progress" style="height: 5px;">
+                                        <!-- <div class="mb-2 progress" style="height: 5px;">
                                             <div class="progress-bar" role="progressbar" aria-valuenow="50"
                                                 aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
-                                        </div>
-                                        <div><span class="text-inverse">36/94</span></div>
+                                        </div> -->
+                                        <div><span class="text-inverse">Đoàn Trung Dũng</span></div>
                                     </td>
                                     <td class="align-middle">
                                         <div class="avatar-image avatar-image--loaded">

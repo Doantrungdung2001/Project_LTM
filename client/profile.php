@@ -42,9 +42,9 @@
                 <div class="col-md-8">
                     <div class="tab-content p-0">
                         <div class="tab-pane active show" id="profile-videos">
-                            <div class="m-b-10"><b>Videos (15)</b></div>
+                            <div class="m-b-10"><b>Hinh anh</b></div>
     
-                            <div class="row row-space-2">
+                            <!-- <div class="row row-space-2">
                                 <div class="col-sm-8">
                                     <div class="embed-responsive embed-responsive-16by9 m-b-2">
                                         <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/3Kf-FlECN7M?showinfo=0"></iframe>
@@ -59,9 +59,9 @@
                                         <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/j876xgnTVUg?showinfo=0"></iframe>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
     
-                            <div class="row row-space-2">
+                            <!-- <div class="row row-space-2">
                                 <div class="col-sm-4">
                                     <div class="embed-responsive embed-responsive-16by9 m-b-2">
                                         <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/wUqH_5memWY?showinfo=0"></iframe>
@@ -79,9 +79,9 @@
                                         <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/xS1DghfzuMc?showinfo=0"></iframe>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
     
-                            <div class="row row-space-2">
+                            <!-- <div class="row row-space-2">
                                 <div class="col-sm-4">
                                     <div class="embed-responsive embed-responsive-16by9 m-b-2">
                                         <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/v3ZkCLUFrys?showinfo=0"></iframe>
@@ -99,46 +99,63 @@
                                         <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/qD8OnPC1fLI?showinfo=0"></iframe>
                                     </div>
                                 </div>
+                            </div> -->
+    
+                            <div class="row row-space-3">
+                                <div class="col-sm-5">
+                                    <div class="embed-responsive embed-responsive-16by9 ">
+                                        <img class="embed-responsive-item" src="https://hinhanhdephd.com/wp-content/uploads/2020/07/hinh-nen-galaxy-wallpaper-fullhd-dep-nhat-21.jpg" alt="">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-5">
+                                    <div class="embed-responsive embed-responsive-16by9 ">
+                                        <img class="embed-responsive-item" src="https://i.pinimg.com/originals/fe/af/4c/feaf4c92732ba31ceb3e116284084106.jpg" alt="">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-5">
+                                    <div class="embed-responsive embed-responsive-16by9 ">
+                                        <img class="embed-responsive-item" src="https://mega.com.vn/media/news/0106_hinh-nen-4k-may-tinh19.jpg" alt="">
+                                    </div>
+                                </div>
+                                <!-- <div class="col-sm-4">
+                                    <div class="embed-responsive embed-responsive-16by9 m-b-2">
+                                        <iframe class="embed-responsive-item" src="https://hinhanhdephd.com/wp-content/uploads/2020/07/hinh-nen-galaxy-wallpaper-fullhd-dep-nhat-21.jpg"></iframe>
+                                    </div>
+                                </div>
+    
+                                <div class="col-sm-4">
+                                    <div class="embed-responsive embed-responsive-16by9 m-b-2">
+                                        <iframe class="embed-responsive-item" src="https://hinhanhdephd.com/wp-content/uploads/2020/07/hinh-nen-galaxy-wallpaper-fullhd-dep-nhat-21.jpg"></iframe>
+                                    </div>
+                                </div>
+    
+                                <div class="col-sm-4">
+                                    <div class="embed-responsive embed-responsive-16by9 m-b-2">
+                                        <iframe class="embed-responsive-item" src="https://hinhanhdephd.com/wp-content/uploads/2020/07/hinh-nen-galaxy-wallpaper-fullhd-dep-nhat-21.jpg"></iframe>
+                                    </div>
+                                </div>
                             </div>
     
                             <div class="row row-space-2">
                                 <div class="col-sm-4">
                                     <div class="embed-responsive embed-responsive-16by9 m-b-2">
-                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Guo7gR0XyaU?showinfo=0"></iframe>
+                                        <iframe class="embed-responsive-item" src="https://hinhanhdephd.com/wp-content/uploads/2020/07/hinh-nen-galaxy-wallpaper-fullhd-dep-nhat-21.jpg"></iframe>
                                     </div>
                                 </div>
     
                                 <div class="col-sm-4">
                                     <div class="embed-responsive embed-responsive-16by9 m-b-2">
-                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/ADfIlLfs5Bk?showinfo=0"></iframe>
+                                        <iframe class="embed-responsive-item" src="https://hinhanhdephd.com/wp-content/uploads/2020/07/hinh-nen-galaxy-wallpaper-fullhd-dep-nhat-21.jpg"></iframe>
                                     </div>
                                 </div>
     
                                 <div class="col-sm-4">
                                     <div class="embed-responsive embed-responsive-16by9 m-b-2">
-                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/8Wg1MYjOguI?showinfo=0"></iframe>
+                                        <iframe class="embed-responsive-item" src="https://hinhanhdephd.com/wp-content/uploads/2020/07/hinh-nen-galaxy-wallpaper-fullhd-dep-nhat-21.jpg"></iframe>
                                     </div>
-                                </div>
-                            </div>
-    
-                            <div class="row row-space-2">
-                                <div class="col-sm-4">
-                                    <div class="embed-responsive embed-responsive-16by9 m-b-2">
-                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/LbpHB9wbDhY?showinfo=0"></iframe>
-                                    </div>
-                                </div>
-    
-                                <div class="col-sm-4">
-                                    <div class="embed-responsive embed-responsive-16by9 m-b-2">
-                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/oVWBFkaXMyw?showinfo=0"></iframe>
-                                    </div>
-                                </div>
-    
-                                <div class="col-sm-4">
-                                    <div class="embed-responsive embed-responsive-16by9 m-b-2">
-                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/90PRvlhOLSk?showinfo=0"></iframe>
-                                    </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
