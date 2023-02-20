@@ -580,6 +580,17 @@ void *handleThread(void *my_sock) {
 				}	
 			}
 			break;
+		case LOGOUT_REQUEST: // request code: 14
+			printf("[+] LOGOUT_REQUEST\n");
+			name = strtok(NULL, "|");
+			printf("\nusername:%s",name);
+			UpdateStatus(name);
+			queue_delete(name);
+			sendCode(new_socket, LOGOUT_SUCCESS);
+			printf("[+] LOGOUT SUCCESS\n");
+			memset(name, '\0', strlen(name) + 1);
+			loginUser = NULL;
+			break;			
 		case EXIT_SYS:
 			close(new_socket);
 			printf("Close request from sockfd = %d\n", new_socket);

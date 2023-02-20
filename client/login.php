@@ -14,7 +14,6 @@
                 $port = 8888;
                 $_SESSION['host_server'] = $host;
                 $_SESSION['port']= $port;
-                $_SESSION['linkanh'] = "https://znews-photo.zingcdn.me/w1200/Uploaded/qhj_yvobvhfwbv/2018_07_18/Nguyen_Huy_Binh1.jpg";
                 if(isset($_POST['login'])){
                         $username = $_POST['username'];
                         $password = $_POST['password'];
@@ -32,6 +31,7 @@
                         $response = socket_read($socket, 1024);
                         if (!$response) die("client read fail:" . socket_strerror(socket_last_error()) . "\n");
                         if($response == "16\0" ){
+                            $_SESSION["socket"]= $socket;
                             $_SESSION['username'] = $username;
                             echo "<script>window.location.href = 'home.php';</script>";
                         }
