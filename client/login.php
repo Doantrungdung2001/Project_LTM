@@ -32,6 +32,7 @@
                         $response = socket_read($socket, 1024);
                         if (!$response) die("client read fail:" . socket_strerror(socket_last_error()) . "\n");
                         if($response == "16\0" ){
+                            $_SESSION['username'] = $username;
                             echo "<script>window.location.href = 'home.php';</script>";
                         }
                         else{
@@ -42,7 +43,11 @@
 </head>
 
 <body>
-
+<script type="text/javascript" language="JavaScript">
+	function register() {
+			window.location = './register.php'
+}
+</script>
     <div id="login">
         <h3 class="text-center text-white pt-5">Login form</h3>
         <div class="container">
@@ -57,7 +62,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Password:</label><br>
-                                <input type="text" name="password" id="password" class="form-control">
+                                <input type="password" name="password" id="password" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="remember-me" class="text-info"><span>Remember me</span> <span><input
@@ -65,7 +70,7 @@
                                 <input type="submit" name="login" class="btn btn-info btn-md" value="submit">
                             </div>
                             <div id="register-link" class="text-right">
-                                <a href="#" class="text-info">Register here</a>
+                                <a href="register.php">Register here</a>
                             </div>
                         </form>
                     </div>

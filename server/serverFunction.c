@@ -577,7 +577,7 @@ void *handleThread(void *my_sock) {
 					default:
 						break;
 					}
-				}
+				}	
 			}
 			break;
 		case EXIT_SYS:

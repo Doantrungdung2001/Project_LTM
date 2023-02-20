@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    
+    <?php 
+    session_start();
+    ?>
 </head>
 
 <body>
@@ -19,7 +21,7 @@
 				window.location = './home.php'
 			}
             function logout() {
-				window.location = './logout.php'
+				window.location = './handle_logout.php'
 			}
             function search() {
 				window.location = './list_user.php'
@@ -82,7 +84,7 @@
                                         </div>
                                     </div>
                                     <div class="media-body">
-                                        <div class="mt-0">Đoàn Trung Dũng</div><span class="small">Lương Tài , Bắc Ninh</span>
+                                        <div class="mt-0"><?php if (isset($_SESSION['username'])) echo $_SESSION['username'];?></div><span class="small">Lương Tài , Bắc Ninh</span>
                                     </div>
                                 <!-- </div><i class="fa fa-fw fa-circle text-warning ml-auto align-self-center ml-2"></i> -->
                             </a>

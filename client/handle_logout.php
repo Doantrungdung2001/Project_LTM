@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (isset($_POST['logout'])) {
+    if (isset($_SESSION["username"])) {
 
             // create socket
             $socket = socket_create(AF_INET, SOCK_STREAM, 0) or die("Could not create socket\n");
@@ -9,7 +9,7 @@
             $result = socket_connect($socket, $_SESSION['host_server'], $_SESSION['port']) or die("socket_connect() failed.\n");
 
             // 
-            $msg = "2|" . $_SESSION["username"] . "|";
+            $msg = "02|" . $_SESSION["username"] . "|";
 
             $ret = socket_write($socket, $msg, strlen($msg));
             if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
@@ -21,14 +21,13 @@
 
             // split response from server
             $response = explode("|", $response);
-            if ($response[0] == "17") {
-                session_destroy();
+            if ($response == "17\0") {
                 echo "<script>alert('Are you sure logout ?');</script>";
                 echo "<script>window.location.href = 'login.php';</script>";
                 
             } else {
                 echo "<script>alert('fail!');</script>";
-                echo "<script>window.location.href = 'index.php';</script>";
+                echo "<script>window.location.href = 'home.php';</script>";
             }
 
             // close socket
