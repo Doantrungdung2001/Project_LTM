@@ -28,7 +28,7 @@
 #define BUFF_DATA 4096
 #define SERVER_NAME "127.0.0.1"
 #define USERNAME "root"
-#define PASSWORD ""
+#define PASSWORD "Dung19102001"
 MYSQL *con;
 
 List users;
@@ -505,6 +505,7 @@ void *handleThread(void *my_sock) {
 			close(new_socket);
 			return NULL;
 		}
+		printf("%s\n",buff);
         str_trim_lf(buff,strlen(buff));
 		char *opcode = strtok(buff,"|");
 		REQUEST = atoi(opcode);

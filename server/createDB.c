@@ -15,7 +15,7 @@ int main(int argc, char const *argv[])
 
   char *server = "127.0.0.1";
   char *user = "root";
-  char *password = "";
+  char *password = "Dung19102001";
 
   if (mysql_real_connect(con, server, user, password, NULL, 0, NULL, 0) == NULL)
   {
