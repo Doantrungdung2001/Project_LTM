@@ -30,6 +30,7 @@ typedef enum {
     ACCEPT_IMAGE,
     SEND_DONE,
     SEND_IMG_CONTINUE,
+    RECONNECT,
     STOP,
     BREAK,
     EXIT_SYS,

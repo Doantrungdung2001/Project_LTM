@@ -509,6 +509,18 @@ void sendCode(int sock, int code) {
 	sprintf(codeStr, "%d", code);
 	sendWithCheck(sock, codeStr, strlen(codeStr) + 1);
 }
+// Hàm kết nối lại
+int reconnect(char *username,int socket){
+	for(int i = 0; i < MAX_CLIENTS; i++) {
+		if(strcmp(clients[i]->name, username) == 0) {
+			clients[i]->sockfd = socket;
+			printf("%s reconnect by %d",username,socket);
+			sendWithCheck(socket,"RECONNET",23);
+			return 1;
+		}
+	}
+	return 0;
+}
 
 // Xứ lí dấu enter - OK
 void str_trim_lf(char *arr, int length) {
@@ -625,6 +637,75 @@ void *handleThread(void *my_sock) {
 					default:
 						break;
 					}
+
+				}
+			}
+			break;
+		case RECONNECT:
+			name = strtok(NULL,"|");
+			if(reconnect(name,new_socket)==1){
+				while (1) {
+					char *username;
+					char *filename;
+					char file_path[255];
+					if(readWithCheck(new_socket, buff, REQUEST_SIZE) == 0) {
+						continue;
+					}
+					printRequest(buff);
+					char *opcode;
+					opcode = strtok(buff, "|");
+					REQUEST = atoi(opcode);
+					switch (REQUEST) {
+					case STATUS_USER_REQUEST:
+						username = strtok(NULL,"|");
+						send_status_user(username,new_socket);
+						break;
+					case FIND_IMG_REQUEST:
+						username = strtok(NULL, "|");
+						strcpy(main_name, username);
+						filename = strtok(NULL, "|");
+						// gui yeu cau toi cac may con lai
+						send_message(username, filename);
+						count_send = num_client - 1;
+						printf("[+] SEND TO ALL : %s\n", filename);
+						break;
+					case FILE_WAS_FOUND:
+						username = strtok(NULL, "|");
+						filename = strtok(NULL, "|");
+						char str[BUFF_SIZE];
+						sprintf(str,"%d|%s|%s",ACCEPT_IMAGE,username,filename);
+						sendWithCheck(new_socket,str,strlen(str));
+						printf("[+] FOUND FROM %s\n", username);  
+						str_trim_lf(username, strlen(username));
+						sprintf(file_path,"image/%s/%s",username,filename);
+						pthread_mutex_lock(&clients_mutex);
+						receiveUploadedFileServer(new_socket, file_path, filename);
+						pthread_mutex_unlock(&clients_mutex);
+						printf("[+] AMAZING GOOD JOB\n");
+						send_message_to_sender(file_path, username);
+						
+						break;
+					case FILE_WAS_NOT_FOUND:
+						count_send--;
+						if(count_send == 0) {
+							send_code_img_not_found();
+						}
+						break;
+					case LOGOUT_REQUEST: // request code: 14
+						printf("[+] LOGOUT_REQUEST\n");
+						username = strtok(NULL, "|");
+						printf("\nusername:%s",username);
+						UpdateStatus(username);
+						queue_delete(username);
+						sendCode(new_socket, LOGOUT_SUCCESS);
+						printf("[+] LOGOUT SUCCESS\n");
+						memset(username, '\0', strlen(username) + 1);
+						loginUser = NULL;
+						break;
+					default:
+						break;
+					}
+					if(REQUEST == LOGOUT_REQUEST)break;
 				}
 			}
 			break;

@@ -25,6 +25,7 @@ void sendWithCheck(int sock, char buff[BUFF_SIZE], int length);
 int readWithCheck(int sock, char buff[BUFF_SIZE], int length);
 void *SendFileToServer(int new_socket, char fname[50]);
 int receiveUploadedFile(int sock, char filePath[100],char *filename);
+int reconnect(char *username,int socket);
 void str_trim_lf(char *arr, int length);
 void sendCode(int sock, int code);
 void clearBuff();
