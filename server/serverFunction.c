@@ -266,13 +266,14 @@ void signUp(int sock, List *users, char *name, char *pass) {
         printf("%d|%s\n", QUERY_FAILD, mysql_error(&mysql));
         return;
     }
+	// tao folder trong image
 	char dirname[255];
 	sprintf(dirname,"image/%s",name);
 	int check = mkdir(dirname,S_IRWXU);
 	if (!check)
-		printf("Folder created\n");
+		printf("[+]Folder created\n");
 	else {
-		printf("Unable to create folder\n");
+		printf("[-]Unable to create folder\n");
 		exit(1);
 	}
 }
@@ -312,7 +313,7 @@ void send_message(char name[100], char *nameFile) {
 	char send_request[REQUEST_SIZE];
 	for (int i = 0; i < num_client; i++) {
 		if (strcmp(name, clients[i]->name) != 0) {
-			sprintf(send_request, "%d*%s", FIND_IMG_IN_USERS, nameFile);
+			sprintf(send_request, "%d|%s", FIND_IMG_IN_USERS, nameFile);
 			printf("->SEND TO %s - RECV FROM %s - %s - %s \n", clients[i]->name, name, nameFile, send_request);
 			send(clients[i]->sockfd, send_request, sizeof(send_request), 0);
 			memset(send_request, '\0', strlen(send_request) + 1);
@@ -340,15 +341,15 @@ void send_message_to_sender(char *file_path, char *username) {
 	char send_request[REQUEST_SIZE];
 	for (int i = 0; i < num_client; i++) {
 		if (strcmp(main_name, clients[i]->name) == 0) {
-			sprintf(send_request, "%d*%s", SEND_IMGS_TO_USER, username);
+			sprintf(send_request, "%d|%s", SEND_IMGS_TO_USER, username);
 			send(clients[i]->sockfd, send_request, sizeof(send_request), 0);
 			SendFileToClient(clients[i]->sockfd, file_path);
 			printf("SEND_MESSAGE: %s\n", send_request);
-			if(remove(file_path) == 0){
-				printf("[+] DELETED FILE SUCCESS: %s\n", file_path);
-			}else{
-				printf("[-]  DELETED FILE FAILED: %s\n", file_path);
-			}
+			// if(remove(file_path) == 0){
+			// 	printf("[+] DELETED FILE SUCCESS: %s\n", file_path);
+			// }else{
+			// 	printf("[-]  DELETED FILE FAILED: %s\n", file_path);
+			// }
 			if(count_send == count_write) {
 				count_send = count_write = 0;
 				printf("[+] SEND TO %s DONE\n", clients[i]->name);
@@ -359,8 +360,8 @@ void send_message_to_sender(char *file_path, char *username) {
 }
 
 // Hàm nhận file gửi lên từ client - OK
-void receiveUploadedFileServer(int sock, char filePath[200]){
-	if(receiveUploadedFile(sock, filePath)) count_write++;
+void receiveUploadedFileServer(int sock, char filePath[200], char *filename){
+	if(receiveUploadedFile(sock, filePath, filename)) count_write++;
 	else return;
 }
 // In ra thông điệp request - OK
@@ -423,7 +424,7 @@ void *SendFile(int new_socket, char *fname) {
 }
 
 // Hàm nhận file vào lưu vào thư mục chứa - OK
-int receiveUploadedFile(int sock, char filePath[255]) {
+int receiveUploadedFile(int sock, char filePath[255],char *filename) {
 	FILE *fp;
 	printf(FG_GREEN "[+] Receiving file..." NORMAL "\n");
 	fp = fopen(filePath, "wb");
@@ -457,10 +458,51 @@ int receiveUploadedFile(int sock, char filePath[255]) {
 	}
 	printf(FG_GREEN "[+] File OK....Completed" NORMAL "\n");
 	printf(FG_GREEN "[+] TOTAL RECV: %d\n" NORMAL, total);
+	// them vao database
+	MYSQL mysql; 
+    if(mysql_init(&mysql)==NULL) { 
+        printf("\nInitialization error\n"); 
+        return; 
+    } 
+    mysql_real_connect(&mysql,SERVER_NAME,USERNAME,PASSWORD,"share_image",0,NULL,0); 
+    char query[BUFF_SIZE];
+	sprintf(query, "INSERT INTO user_image(username,imagename,imagelink) VALUES('%s','%s','%d')",name,filename,filePath);
+    if (mysql_query(&mysql, query))
+    {
+        printf("%d|%s\n", QUERY_FAILD, mysql_error(&mysql));
+        return;
+    }
 	fclose(fp);
 	return 1;
 }
-
+// Hàm gửi danh sách trạng thái người dùng
+void send_status_user(char* username, int sockfd){
+	send_message[BUFF_SIZE];
+	sprintf(send_message,"%d",STATUS_USER_LIST);
+	MYSQL mysql; 
+    if(mysql_init(&mysql)==NULL) { 
+        printf("\nInitialization error\n"); 
+        return; 
+    } 
+    mysql_real_connect(&mysql,SERVER_NAME,USERNAME,PASSWORD,"share_image",0,NULL,0); 
+    char query[BUFF_SIZE];
+	sprintf(query, "SELECT username,status from users Where username != '%s'",username);
+    if (mysql_query(&mysql, query))
+    {
+        printf("%d|%s\n", QUERY_FAILD, mysql_error(&mysql));
+        return;
+    }
+	char str[BUFF_SIZE];
+	MYSQL_RES *result = mysql_store_result(&mysql);
+	while(1){
+		MYSQL_ROW row = mysql_fetch_row(result);
+		if (row == NULL)break;
+		// if(strcmp(username,row[0]) == 0) continue;
+		sprintf(str,"|%s|%s",row[0],row[1]);
+		strcat(send_message,str);
+	}
+	sendWithCheck(sockfd,send_message,strlen(send_message));
+}
 // Hàm gửi tín hiệu code tương ứng - OK
 void sendCode(int sock, int code) {
 	char codeStr[10];
@@ -490,7 +532,7 @@ void clearClient(){
 	}
 }
 	
-// // Hàm xử lí luồng - OK
+//Hàm xử lí luồng - OK
 void *handleThread(void *my_sock) {
 	int new_socket = *((int *)my_sock);
 	PROTOCOL REQUEST;
@@ -534,6 +576,10 @@ void *handleThread(void *my_sock) {
 					opcode = strtok(buff, "|");
 					REQUEST = atoi(opcode);
 					switch (REQUEST) {
+					case STATUS_USER_REQUEST:
+						username = strtok(NULL,"|");
+						send_status_user(username,new_socket);
+						break;
 					case FIND_IMG_REQUEST:
 						username = strtok(NULL, "|");
 						strcpy(main_name, username);
@@ -550,7 +596,7 @@ void *handleThread(void *my_sock) {
 						str_trim_lf(username, strlen(username));
 						sprintf(file_path,"image/%s/%s",username,filename);
 						pthread_mutex_lock(&clients_mutex);
-						receiveUploadedFileServer(new_socket, file_path);
+						receiveUploadedFileServer(new_socket, file_path, filename);
 						pthread_mutex_unlock(&clients_mutex);
 						printf("[+] AMAZING GOOD JOB\n");
 						send_message_to_sender(file_path, username);
