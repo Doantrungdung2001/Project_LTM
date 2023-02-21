@@ -459,25 +459,25 @@ int receiveUploadedFile(int sock, char filePath[255],char *filename) {
 	printf(FG_GREEN "[+] File OK....Completed" NORMAL "\n");
 	printf(FG_GREEN "[+] TOTAL RECV: %d\n" NORMAL, total);
 	// them vao database
-	MYSQL mysql; 
-    if(mysql_init(&mysql)==NULL) { 
-        printf("\nInitialization error\n"); 
-        return; 
-    } 
-    mysql_real_connect(&mysql,SERVER_NAME,USERNAME,PASSWORD,"share_image",0,NULL,0); 
-    char query[BUFF_SIZE];
-	sprintf(query, "INSERT INTO user_image(username,imagename,imagelink) VALUES('%s','%s','%d')",name,filename,filePath);
-    if (mysql_query(&mysql, query))
-    {
-        printf("%d|%s\n", QUERY_FAILD, mysql_error(&mysql));
-        return;
-    }
+	// MYSQL mysql; 
+    // if(mysql_init(&mysql)==NULL) { 
+    //     printf("\nInitialization error\n"); 
+    //     return; 
+    // } 
+    // mysql_real_connect(&mysql,SERVER_NAME,USERNAME,PASSWORD,"share_image",0,NULL,0); 
+    // char query[BUFF_SIZE];
+	// sprintf(query, "INSERT INTO user_image(username,imagename,imagelink) VALUES('%s','%s','%d')",name,filename,filePath);
+    // if (mysql_query(&mysql, query))
+    // {
+    //     printf("%d|%s\n", QUERY_FAILD, mysql_error(&mysql));
+    //     return;
+    // }
 	fclose(fp);
 	return 1;
 }
 // Hàm gửi danh sách trạng thái người dùng
 void send_status_user(char* username, int sockfd){
-	send_message[BUFF_SIZE];
+	char send_message[BUFF_SIZE];
 	sprintf(send_message,"%d",STATUS_USER_LIST);
 	MYSQL mysql; 
     if(mysql_init(&mysql)==NULL) { 
@@ -592,6 +592,9 @@ void *handleThread(void *my_sock) {
 					case FILE_WAS_FOUND:
 						username = strtok(NULL, "|");
 						filename = strtok(NULL, "|");
+						char str[BUFF_SIZE];
+						sprintf(str,"%d|%s|%s",ACCEPT_IMAGE,username,filename);
+						sendWithCheck(new_socket,str,strlen(str));
 						printf("[+] FOUND FROM %s\n", username);  
 						str_trim_lf(username, strlen(username));
 						sprintf(file_path,"image/%s/%s",username,filename);
