@@ -68,8 +68,8 @@ int main(int argc, char * argv[]){
 					printf("Login\n");
 					while (1){
 						printf("\n*********************************************\n");
-						printf("*1.Tim kiem anh theo ten                      *\n");
-						printf("*2.Dang xuat                                  *\n");
+						printf("*Tim kiem anh theo ten                       *\n");
+						printf("*Dang xuat                                  *\n");
 						printf("*********************************************\n");
 						printf("Nhap:");
 						memset(buff,'\0',(strlen(buff)+1));
@@ -89,6 +89,7 @@ int main(int argc, char * argv[]){
 							break;
 						}
 						printf("Reply from server: %s\n", buff);
+						
 						if(strcmp(buff,"17")){
 
 						}
@@ -170,4 +171,73 @@ int main(int argc, char * argv[]){
 	//Step 4: Close socket
 	close(client_sock);
 	return 0;
+}
+void *SendFile(int new_socket, char *fname) {
+	FILE *fp = fopen(fname, "rb");
+	if (fp == NULL) {
+		printf("[-] File open error");
+	}
+	fseek(fp, 0, SEEK_END);
+	int size = ftell(fp);
+	fseek(fp, 0, SEEK_SET);
+
+	int n, total = 0;
+	char sendline[BUFF_DATA] = {0};
+	send(new_socket, &size, sizeof(size), 0);
+	while ((n = fread(sendline, 1, BUFF_DATA, fp)) > 0) {
+		if (n != BUFF_DATA && ferror(fp)) {
+			perror("[-] Read File Error");
+			exit(1);
+		}
+		if (send(new_socket, sendline, n, 0) == -1) {
+			perror("[-] Can't send file");
+			exit(1);
+		}
+		total += n;
+		memset(sendline, '\0', BUFF_DATA);
+		if(total >= size) {
+			fclose(fp);
+			break;
+		}
+	}
+	printf("[+] File OK....Completed\n");
+	printf("[+] TOTAL SEND: %d\n", total);
+}
+
+void receiveUploadedFile(int sock, char filePath[255],char *filename) {
+	FILE *fp;
+	printf([+] Receiving file... "\n");
+	fp = fopen(filePath, "wb");
+	if (NULL == fp) {
+		printf("[-] Error opening file\n");
+		return -1;
+	}
+	int sizeFileRecv = 0;
+	recv(sock, &sizeFileRecv, sizeof(sizeFileRecv), 0);
+	printf("[+] SIZE IMG: %d\n", sizeFileRecv);
+	ssize_t n;
+	int total = 0;
+	char buff[BUFF_DATA] = {0};
+	while ((n = recv(sock, buff, BUFF_DATA, 0)) > 0) {
+		if (n == -1) {
+			perror("[-] Receive File Error");
+			exit(1);
+		}
+		// if (total + n >= sizeFileRecv) {
+		// 	n = sizeFileRecv - total;
+		// }
+		if (fwrite(buff, 1, n, fp) != n) {
+			perror("[-] Write File Error");
+			exit(1);
+		}
+		total += n;
+		memset(buff, '\0', BUFF_DATA);
+		if(total >= sizeFileRecv) {
+			break;
+		}
+	}
+	printf("[+] File OK....Completed\n");
+	printf("[+] TOTAL RECV: %d \n", total);
+	
+	fclose(fp);
 }

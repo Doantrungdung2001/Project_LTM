@@ -339,6 +339,7 @@ void *SendFileToClient(int new_socket, char *fname) {
 	SendFile(new_socket, fname);
 }
 
+
 // Gửi danh sách tìm thấy cho người dùng tìm kiếm - OK
 void send_message_to_sender(char *file_path, char *username) {
 	char send_request[REQUEST_SIZE];
