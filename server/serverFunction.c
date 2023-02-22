@@ -317,6 +317,7 @@ void send_message(char name[100], char *nameFile) {
 		if (strcmp(name, clients[i]->name) != 0) {
 			sprintf(send_request, "%d|%s", FIND_IMG_IN_USERS, nameFile);
 			printf("->SEND TO %s - RECV FROM %s - %s - %s \n", clients[i]->name, name, nameFile, send_request);
+			printf("a %s\n",send_request);
 			send(clients[i]->sockfd, send_request, sizeof(send_request), 0);
 			memset(send_request, '\0', strlen(send_request) + 1);
 		}

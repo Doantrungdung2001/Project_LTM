@@ -6,7 +6,6 @@
 
             // connect to server
             $result = socket_connect($socket, $_SESSION['host_server'], $_SESSION['port']) or die("socket_connect() failed.\n");
-
             // 
             $msg = "02|" . $_SESSION['username'] . "|";
 

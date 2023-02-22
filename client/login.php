@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <?php
+        header('Connection: close');
                 session_start();
                 $host = "127.0.0.1";
                 $port = 8888;
@@ -22,7 +23,6 @@
 
                         // connect to server
                         $result = socket_connect($socket, $_SESSION['host_server'], $_SESSION['port']) or die("socket_connect() failed.\n");
-
                         $msg = "00|" . $username . "|". $password . "|";
                         $ret = socket_write($socket, $msg, strlen($msg));
                         if (!$ret) die("client write fail:" . socket_strerror(socket_last_error()) . "\n");
@@ -31,7 +31,6 @@
                         $response = socket_read($socket, 1024);
                         if (!$response) die("client read fail:" . socket_strerror(socket_last_error()) . "\n");
                         if($response == "16\0" ){
-                            $_SESSION["socket"]= $socket;
                             $_SESSION['username'] = $username;
                             echo "<script>window.location.href = 'home.php';</script>";
                         }
