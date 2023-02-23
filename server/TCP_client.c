@@ -8,6 +8,7 @@
 
 
 #define BUFF_SIZE 1024
+#define BUFF_DATA 4096
 
 int main(int argc, char * argv[]){
     if(argc < 3)return 1;
@@ -90,14 +91,14 @@ int main(int argc, char * argv[]){
 						}
 						printf("Reply from server: %s\n", buff);
 						
-						if(strcmp(buff,"17")){
+						// if(strcmp(buff,"17") == 0){
 
-						}
-						else if(strcmp(buff,"17") == 0){
-							break;
-						}else{
-							printf("Nhap lai\n");
-						}
+						// }
+						// else if(strcmp(buff,"17") == 0){
+						// 	break;
+						// }else{
+						// 	printf("Nhap lai\n");
+						// }
 					}	
 				}else{
 					printf("fale\n");
@@ -206,7 +207,7 @@ void *SendFile(int new_socket, char *fname) {
 
 void receiveUploadedFile(int sock, char filePath[255],char *filename) {
 	FILE *fp;
-	printf([+] Receiving file... "\n");
+	printf("[+] Receiving file... \n");
 	fp = fopen(filePath, "wb");
 	if (NULL == fp) {
 		printf("[-] Error opening file\n");

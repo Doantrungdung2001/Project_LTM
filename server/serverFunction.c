@@ -317,8 +317,9 @@ void send_message(char name[100], char *nameFile) {
 		if (strcmp(name, clients[i]->name) != 0) {
 			sprintf(send_request, "%d|%s", FIND_IMG_IN_USERS, nameFile);
 			printf("->SEND TO %s - RECV FROM %s - %s - %s \n", clients[i]->name, name, nameFile, send_request);
-			printf("a %s\n",send_request);
+			printf("%s\n",send_request);
 			send(clients[i]->sockfd, send_request, sizeof(send_request), 0);
+			printf("abcs");
 			memset(send_request, '\0', strlen(send_request) + 1);
 		}
 	}
@@ -431,11 +432,12 @@ void *SendFile(int new_socket, char *fname) {
 int receiveUploadedFile(int sock, char filePath[255],char *filename) {
 	FILE *fp;
 	printf(FG_GREEN "[+] Receiving file..." NORMAL "\n");
-	fp = fopen(filePath, "wb");
-	if (NULL == fp) {
+	fp = fopen(filePath, "wb+");
+	if (NULL ==fp) {
 		printf("[-] Error opening file\n");
 		return -1;
 	}
+	printf("a");
 	int sizeFileRecv = 0;
 	recv(sock, &sizeFileRecv, sizeof(sizeFileRecv), 0);
 	printf("[+] SIZE IMG: %d\n", sizeFileRecv);
@@ -443,6 +445,7 @@ int receiveUploadedFile(int sock, char filePath[255],char *filename) {
 	int total = 0;
 	char buff[BUFF_DATA] = {0};
 	while ((n = recv(sock, buff, BUFF_DATA, 0)) > 0) {
+		printf("b");
 		if (n == -1) {
 			perror("[-] Receive File Error");
 			exit(1);
@@ -454,6 +457,7 @@ int receiveUploadedFile(int sock, char filePath[255],char *filename) {
 			perror("[-] Write File Error");
 			exit(1);
 		}
+		printf("c");
 		total += n;
 		memset(buff, '\0', BUFF_DATA);
 		if(total >= sizeFileRecv) {
@@ -606,7 +610,7 @@ void *handleThread(void *my_sock) {
 						count_send = num_client - 1;
 						printf("[+] SEND TO ALL : %s\n", filename);
 						break;
-					case FILE_WAS_FOUND:
+					case FILE_WAS_FOUND: //06|dungdoan|file
 						username = strtok(NULL, "|");
 						filename = strtok(NULL, "|");
 						char str[BUFF_SIZE];
@@ -615,12 +619,13 @@ void *handleThread(void *my_sock) {
 						printf("[+] FOUND FROM %s\n", username);  
 						str_trim_lf(username, strlen(username));
 						sprintf(file_path,"image/%s/%s",username,filename);
+						printf("%s\n",file_path);
+						printf("image/%s/%s\n",username,filename);
 						pthread_mutex_lock(&clients_mutex);
 						receiveUploadedFileServer(new_socket, file_path, filename);
 						pthread_mutex_unlock(&clients_mutex);
 						printf("[+] AMAZING GOOD JOB\n");
 						send_message_to_sender(file_path, username);
-						
 						break;
 					case FILE_WAS_NOT_FOUND:
 						count_send--;
