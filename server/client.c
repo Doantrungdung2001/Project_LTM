@@ -9,8 +9,47 @@
 
 #define BUFF_SIZE 1024
 
+int send_image(int socket,char *filepath){
+   FILE *picture;
+   int size, read_size, stat, packet_index;
+   char send_buffer[BUFF_SIZE], read_buffer[256];
+   packet_index = 1;
+   picture = fopen(filepath, "rb");
+   if(picture == NULL) {
+        printf("Error Opening Image File"); 
+    } 
+   fseek(picture, 0, SEEK_END);
+   size = ftell(picture);
+   fseek(picture, 0, SEEK_SET);
+
+   //Send Picture Size
+   write(socket, (void *)&size, sizeof(int));
+
+   //Send Picture as Byte Array
+
+   do { //Read while we get errors that are due to signals.
+        stat=read(socket, &read_buffer , 255);
+   } while (stat < 0);
+
+   while(!feof(picture)) {
+        //Read from the file into our send buffer
+        read_size = fread(send_buffer, 1, sizeof(send_buffer)-1, picture);
+
+        //Send data through our socket 
+        do{
+            stat = write(socket, send_buffer, read_size);  
+        }while (stat < 0);
+        packet_index++;  
+        //Zero out our send buffer
+        bzero(send_buffer, sizeof(send_buffer));
+    }
+    return 1;
+}
+
 void SendFile(int new_socket, char *fname) {
-	FILE *fp = fopen(fname, "rb");
+	printf("b");
+	FILE *fp = fopen(fname, "r");
+	printf("a");
 	if (fp == NULL) {
 		printf("[-] File open error");
 	}
@@ -45,7 +84,7 @@ void SendFile(int new_socket, char *fname) {
 int main(int argc, char * argv[]){
     if(argc < 3)return 1;
 	int client_sock,choose,menu;
-	char buff[BUFF_SIZE];
+	char buff[BUFF_SIZE],input[BUFF_SIZE];
 	char *name , *pass;
 	char comfirm;
 	struct sockaddr_in server_addr; /* server's address information */
@@ -100,31 +139,40 @@ int main(int argc, char * argv[]){
 			char *filename = strtok(NULL,"|");
 			printf("Reply from server:%s %s\n",opcode,filename);
 			if(strcmp(opcode,"5") ==0 ){
-				printf("Ban nhan duoc yeu cau muon chia se anh ,Ban co muon chia se khong(y/n)?");
-				scanf("%c",&comfirm);
-				fflush(stdin);
-				if(comfirm == 'y'){
-					printf("Nhap thong diep: ");
-					fflush(stdin);
+				// printf("Ban nhan duoc yeu cau muon chia se anh ,Ban co muon chia se khong(y/n)?");
+				// scanf("%c",&comfirm);
+				if(1){
+					char x[BUFF_SIZE];
+					strcpy(x,"image/admin/ninhbinh.jpg");
+					printf("%s",x);
+					FILE *fp = fopen(x, "wb+");
+					if (fp == NULL) {
+						printf("[-] Error opening file\n");
+						return -1;
+					}else{
+						printf("a");
+					}
+					printf("Nhap thong diep:");
 					memset(buff,'\0',(strlen(buff)+1));
-					scanf("%s",buff);
-					printf("%s",buff);
+					fgets(buff, BUFF_SIZE, stdin);					
 					msg_len = strlen(buff);
 
 					if (msg_len == 0) break;
 					bytes_sent = send(client_sock, buff, msg_len, 0);
+					printf("%s",buff);
 					if(bytes_sent <= 0){
 						printf("\nConnection closed!\n");
 						break;
 					}
-
-					bytes_received = recv(client_sock, buff, BUFF_SIZE-1, 0);
-					if(bytes_received <= 0){
-						printf("\nError!Cannot receive data from sever!\n");
-						break;
-					}
-					printf("Reply from server: %s", buff);
-					SendFile(client_sock,filename);
+					send_image(client_sock,x);
+					// SendFile(client_sock,x);
+					// bytes_received = recv(client_sock, buff, BUFF_SIZE-1, 0);
+					// if(bytes_received <= 0){
+					// 	printf("\nError!Cannot receive data from sever!\n");
+					// 	break;
+					// }
+					// printf("Reply from server: %s", buff);
+					
 					printf("Cam on ban da chia se file\n");
 					// exit(0);
 				}
