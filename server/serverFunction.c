@@ -515,10 +515,11 @@ int reconnect(char *username,int socket){
 		if(strcmp(clients[i]->name, username) == 0) {
 			clients[i]->sockfd = socket;
 			printf("%s reconnect by %d",username,socket);
-			sendWithCheck(socket,"RECONNET",23);
+			sendCode(clients[i]->sockfd, RECONNECT_SUCCESS);
 			return 1;
 		}
 	}
+	sendCode(socket, RECONNECT_FAILD);
 	return 0;
 }
 
@@ -574,7 +575,9 @@ void *handleThread(void *my_sock) {
 			// nhan username va password
 			printf("[+] LOGIN_REQUEST\n");
 			name = strtok(NULL, "|");
+			// str_trim_lf(name,strlen(name));
 			pass = strtok(NULL, "|");
+			// str_trim_lf(pass,strlen(pass));
 			if (signIn(new_socket, users, &loginUser, name, pass) == 1) {
 				while (REQUEST != LOGOUT_REQUEST) {
 					char *username;

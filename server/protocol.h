@@ -1,3 +1,4 @@
+
 #ifndef __PROTOCOL_H__
 #define __PROTOCOL_H__
 #define FG_BLACK    "\x1b[90m"     // Black foreground
@@ -43,6 +44,12 @@ typedef enum {
     LOGIN_FAILED,
     NON_EXISTENCE_USERNAME,
     IS_CURRENTLY_LOGGED,
-    QUERY_FAILD
+    QUERY_FAILD,
+    ACCEPT_IMAGE,
+    STATUS_USER_REQUEST,
+    STATUS_USER_LIST,
+    RECONNECT,
+    RECONNECT_SUCCESS,
+    RECONNECT_FAILD
 } PROTOCOL;
 #endif
