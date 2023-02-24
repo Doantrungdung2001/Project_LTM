@@ -29,6 +29,7 @@
 #define SERVER_NAME "127.0.0.1"
 #define USERNAME "root"
 #define PASSWORD "Dung19102001"
+#define PATH "image/admin/test.jpg"
 MYSQL *con;
 
 List users;
@@ -348,7 +349,7 @@ void send_message_to_sender(char *file_path, char *username) {
 		if (strcmp(main_name, clients[i]->name) == 0) {
 			sprintf(send_request, "%d|%s", SEND_IMGS_TO_USER, username);
 			send(clients[i]->sockfd, send_request, sizeof(send_request), 0);
-			SendFileToClient(clients[i]->sockfd, file_path);
+			// SendFileToClient(clients[i]->sockfd, file_path);
 			printf("SEND_MESSAGE: %s\n", send_request);
 			// if(remove(file_path) == 0){
 			// 	printf("[+] DELETED FILE SUCCESS: %s\n", file_path);
@@ -370,7 +371,7 @@ int receive_image(int socket, char *filename)
 
 	char imagearray[10240],verify = '1';
 	FILE *image;
-
+	printf("abc\n");
 	//Find the size of the image
 	do{
 		stat = read(socket, &size, sizeof(int));
@@ -383,7 +384,7 @@ int receive_image(int socket, char *filename)
 		stat = write(socket, &buffer, sizeof(int));
 	}while(stat < 0);
 	image = fopen(filename, "w+");
-
+	printf("%s\n",filename);
 //Loop while we have not received the entire file yet
 	int need_exit = 0;
 	struct timeval timeout = {10,0};
@@ -395,7 +396,7 @@ int receive_image(int socket, char *filename)
 		FD_ZERO(&fds);
 		FD_SET(socket,&fds);
 		buffer_fd = select(FD_SETSIZE,&fds,NULL,NULL,&timeout);
-
+		printf("a\n");
 		if (buffer_fd < 0)
 			printf("error: bad file descriptor set.\n");
 		if (buffer_fd == 0)
@@ -411,6 +412,7 @@ int receive_image(int socket, char *filename)
 			if(read_size != write_size) {
 				printf("error in read write\n");    
 			}
+			printf("nb\n");
 			//Increment the total number of bytes read
 			recv_size += read_size;
 			packet_index++;
@@ -680,7 +682,7 @@ void *handleThread(void *my_sock) {
 						printf("%s\n",file_path);
 						printf("image/%s/%s\n",username,filename);
 						pthread_mutex_lock(&clients_mutex);
-						receive_image(new_socket,file_path);
+						receive_image(new_socket,PATH);
 						// receiveUploadedFileServer(new_socket, file_path, filename);
 						pthread_mutex_unlock(&clients_mutex);
 						printf("[+] AMAZING GOOD JOB\n");

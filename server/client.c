@@ -6,7 +6,7 @@
 #include <sys/types.h>
 #include <string.h>
 #define BUFF_DATA 4096
-
+#define PATH "image/admin/hanoi.jpg"
 #define BUFF_SIZE 1024
 
 int send_image(int socket,char *filepath){
@@ -143,14 +143,11 @@ int main(int argc, char * argv[]){
 				// scanf("%c",&comfirm);
 				if(1){
 					char x[BUFF_SIZE];
-					strcpy(x,"image/admin/ninhbinh.jpg");
-					printf("%s",x);
+			
 					FILE *fp = fopen(x, "wb+");
 					if (fp == NULL) {
 						printf("[-] Error opening file\n");
 						return -1;
-					}else{
-						printf("a");
 					}
 					printf("Nhap thong diep:");
 					memset(buff,'\0',(strlen(buff)+1));
@@ -159,12 +156,12 @@ int main(int argc, char * argv[]){
 
 					if (msg_len == 0) break;
 					bytes_sent = send(client_sock, buff, msg_len, 0);
-					printf("%s",buff);
+					printf("%s\n",buff);
 					if(bytes_sent <= 0){
 						printf("\nConnection closed!\n");
 						break;
 					}
-					send_image(client_sock,x);
+					send_image(client_sock,PATH );
 					// SendFile(client_sock,x);
 					// bytes_received = recv(client_sock, buff, BUFF_SIZE-1, 0);
 					// if(bytes_received <= 0){
