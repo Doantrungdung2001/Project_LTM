@@ -206,6 +206,7 @@ int main(int argc, char * argv[]){
 								}
 								printf(FG_GREEN "[+] Phan hoi tu server: %s\n" NORMAL, buff);
 								if(strcmp(buff,"17") == 0){
+									printf("\nDang xuat thanh cong!!!!!\n");
 									exit(0);
 								}
 

@@ -639,7 +639,7 @@ void send_status_user(char* username, int sockfd){
 		MYSQL_ROW row = mysql_fetch_row(result);
 		if (row == NULL)break;
 		num ++;
-		// if(strcmp(username,row[0]) == 0) continue;
+		if(strcmp(username,row[0]) == 0) continue;
 		sprintf(s,"|%s|%s",row[0],row[1]);
 		strcat(str,s);
 	}
