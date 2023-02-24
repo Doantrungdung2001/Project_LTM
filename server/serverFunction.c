@@ -29,7 +29,7 @@
 #define SERVER_NAME "127.0.0.1"
 #define USERNAME "root"
 #define PASSWORD "Dung19102001"
-#define PATH "image/dungdoan/hanoi.jpg"
+#define PATH "image/admin/hanoi.jpg"
 MYSQL *con;
 
 List users;
@@ -280,6 +280,37 @@ void signUp(int sock, List *users, char *name, char *pass) {
 }
 
 // Hàm kiểm tra đăng nhập - OK
+// int signIn(int sock, List users, user_struct **loginUser, char *name, char *pass) {
+// 	if(isLogged(name) == 1) {
+// 		sendCode(sock, IS_CURRENTLY_LOGGED);
+// 		printf("[-] LOGIN FAILED\n");
+// 		return 0;
+// 	}
+// 	if (checkExistence(1, users, name) == 1) {
+// 		*loginUser = (user_struct *)(findByName(1, users, name));
+// 		if (strcmp((*loginUser)->password, pass) == 0) {
+// 			sendCode(sock, LOGIN_SUCCESS);
+// 			client_t *cli = (client_t *)malloc(sizeof(client_t));
+// 			strcpy(cli->name, name);
+// 			cli->sockfd = sock;
+// 			cli->uid = num_client;
+// 			queue_add(cli);
+// 			printf("[+] LOGIN SUCCESS\n");
+// 			return 1;
+// 		}else {
+// 			sendCode(sock, LOGIN_FAILED);
+// 			printf("a");
+// 			printf("[-]LOGIN FAILED\n");
+// 			return 0;
+// 		}
+// 	}else {
+// 		sendCode(sock, LOGIN_FAILED);
+// 		printf("[-]LOGIN FAILED\n");
+// 		printf("b");
+// 		return 0;
+// 	}
+// }
+
 int signIn(int sock, List users, user_struct **loginUser, char *name, char *pass) {
 	if(isLogged(name) == 1) {
 		sendCode(sock, IS_CURRENTLY_LOGGED);
@@ -296,17 +327,29 @@ int signIn(int sock, List users, user_struct **loginUser, char *name, char *pass
 			cli->uid = num_client;
 			queue_add(cli);
 			printf("[+] LOGIN SUCCESS\n");
+			// them vao database
+			MYSQL mysql; 
+			if(mysql_init(&mysql)==NULL) { 
+				printf("\nInitialization error\n"); 
+				return 0; 
+			} 
+			mysql_real_connect(&mysql,SERVER_NAME,USERNAME,PASSWORD,"share_image",0,NULL,0); 
+			char query[BUFF_SIZE];
+			sprintf(query,"UPDATE users set status = '1' WHERE username = '%s'",name);
+			if (mysql_query(&mysql, query))
+			{
+				printf("%d|%s\n", QUERY_FAILD, mysql_error(&mysql));
+				return 0;
+			}
 			return 1;
 		}else {
 			sendCode(sock, LOGIN_FAILED);
-			printf("a");
-			printf("[-]LOGIN FAILED\n");
+			printf("[-] LOGIN FAILED\n");
 			return 0;
 		}
 	}else {
 		sendCode(sock, LOGIN_FAILED);
-		printf("[-]LOGIN FAILED\n");
-		printf("b");
+		printf("[-] LOGIN FAILED\n");
 		return 0;
 	}
 }
@@ -575,7 +618,8 @@ int receiveUploadedFile(int sock, char filePath[255],char *filename) {
 // Hàm gửi danh sách trạng thái người dùng
 void send_status_user(char* username, int sockfd){
 	char send_message[BUFF_SIZE];
-	sprintf(send_message,"%d",STATUS_USER_LIST);
+	int num = 0;
+	// sprintf(send_message,"%d",STATUS_USER_LIST);
 	MYSQL mysql; 
     if(mysql_init(&mysql)==NULL) { 
         printf("\nInitialization error\n"); 
@@ -589,16 +633,21 @@ void send_status_user(char* username, int sockfd){
         printf("%d|%s\n", QUERY_FAILD, mysql_error(&mysql));
         return;
     }
-	char str[BUFF_SIZE];
+	char str[BUFF_SIZE],s[BUFF_SIZE];
 	MYSQL_RES *result = mysql_store_result(&mysql);
 	while(1){
 		MYSQL_ROW row = mysql_fetch_row(result);
 		if (row == NULL)break;
+		num ++;
 		// if(strcmp(username,row[0]) == 0) continue;
-		sprintf(str,"|%s|%s",row[0],row[1]);
-		strcat(send_message,str);
+		sprintf(s,"|%s|%s",row[0],row[1]);
+		strcat(str,s);
 	}
-	sendWithCheck(sockfd,send_message,strlen(send_message));
+	sprintf(send_message,"%d|%d",STATUS_USER_LIST,num);
+	strcat(send_message,str);
+	send_message[strlen(send_message)] = '|';
+	// puts("\n%s",send_message);
+	sendWithCheck(sockfd,send_message,strlen(send_message)+1);
 }
 // Hàm gửi tín hiệu code tương ứng - OK
 void sendCode(int sock, int code) {
@@ -708,16 +757,16 @@ void *handleThread(void *my_sock) {
 						printf("[+] FOUND FROM %s\n", username);  
 						str_trim_lf(username, strlen(username));
 						sprintf(file_path,"image/%s/%s",username,filename);
-						printf("%s\n",file_path);
+						printf("duong dan:%s\n",file_path);
 						
 						pthread_mutex_lock(&clients_mutex);
 
-						if(receive_image(new_socket,PATH) == 1){
+						str_trim_lf(file_path,strlen(file_path));
+						if(receive_image(new_socket,file_path) == 1){
 							printf("OK\n");
 							
-							send_message_to_sender(PATH, username);
+							send_message_to_sender(file_path, username);
 						}
-						// receiveUploadedFileServer(new_socket, file_path, filename);
 						pthread_mutex_unlock(&clients_mutex);
 						printf("[+] AMAZING GOOD JOB\n");
 						break;

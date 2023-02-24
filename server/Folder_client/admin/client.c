@@ -47,38 +47,6 @@ int send_image(int socket,char *filepath){
     return 1;
 }
 
-void SendFile(int new_socket, char *fname) {
-	printf("b");
-	FILE *fp = fopen(fname, "r");
-	printf("a");
-	if (fp == NULL) {
-		printf("[-] File open error");
-	}
-	fseek(fp, 0, SEEK_END);
-	int size = ftell(fp);
-	fseek(fp, 0, SEEK_SET);
-	int n, total = 0;
-	char sendline[BUFF_DATA] = {0};
-	send(new_socket, &size, sizeof(size), 0);
-	while ((n = fread(sendline, 1, BUFF_DATA, fp)) > 0) {
-		if (n != BUFF_DATA && ferror(fp)) {
-			perror("[-] Read File Error");
-			exit(1);
-		}
-		if (send(new_socket, sendline, n, 0) == -1) {
-			perror("[-] Can't send file");
-			exit(1);
-		}
-		total += n;
-		memset(sendline, '\0', BUFF_DATA);
-		if(total >= size) {
-			fclose(fp);
-			break;
-		}
-	}
-	printf("[+] File OK....Completed\n");
-	printf("[+] TOTAL SEND: %d\n", total);
-}
 
 int main(int argc, char * argv[]){
     if(argc < 3)return 1;
@@ -107,7 +75,7 @@ int main(int argc, char * argv[]){
 	while(1){
 		
 		// send message
-		printf("\nInsert string to send:");
+		printf("\nNhap thong diep:");
 		memset(buff,'\0',(strlen(buff)+1));
 		fgets(buff, BUFF_SIZE, stdin);		
 		msg_len = strlen(buff);
@@ -127,7 +95,7 @@ int main(int argc, char * argv[]){
 		}
 		
 		if(strcmp(buff,"16") == 0){
-            printf("Login!!!!!\n");
+            printf("Dang nhap thanh cong!!!!!\n");
             memset(buff,'\0',(strlen(buff)+1));
             bytes_received = recv(client_sock, buff, BUFF_SIZE-1, 0);
 			if(bytes_received <= 0){
@@ -136,7 +104,7 @@ int main(int argc, char * argv[]){
 			}
 			char *opcode = strtok(buff,"|");
 			char *filename = strtok(NULL,"|");
-			printf("Reply from server:%s %s\n",opcode,filename);
+			printf("Phan hoi tu server:%s %s\n",opcode,filename);
 			if(strcmp(opcode,"5") ==0 ){
 				printf("Ban nhan duoc yeu cau muon chia se anh ,Ban co muon chia se khong(y/n)?");
 				scanf("%c",&comfirm);
@@ -158,8 +126,12 @@ int main(int argc, char * argv[]){
 					send_image(client_sock,PATH );
 					
 					printf("Cam on ban da chia se file\n");
-					// exit(0);
+					exit(0);
+				}else
+				{
+					continue;
 				}
+				
 			}else{
 				printf("That su xin loi vi da lam phien !!!!\n");
 				exit(0);
@@ -167,7 +139,7 @@ int main(int argc, char * argv[]){
             
 			
 		}else{
-			printf("fale\n");
+			printf("Loi!!!!!\n");
 		}
 		// printf("Reply from server: %s", buff);
 	}

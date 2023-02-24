@@ -16,13 +16,14 @@
         // receive response from server
         $response = socket_read($socket, 1024);
         if (!$response) die("client read fail:" . socket_strerror(socket_last_error()) . "\n");
+        echo "<script>window.location.href = 'login.php';</script>";
         echo $response;
         // if($response == "16\0" ){
         //     $_SESSION['username'] = $username;
         //     echo "<script>window.location.href = 'home.php';</script>";
         // }
         // else{
-        //     echo "<script>window.location.href = 'login.php';</script>";
+            
         // }
 }   
 ?>

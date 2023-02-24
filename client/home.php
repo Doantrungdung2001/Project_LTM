@@ -38,7 +38,7 @@
                             <button class="btn btn-secondary" type = "submit""><i class="fa fa-search" ></i></button>
                         </div>
                     </div> -->
-                    <form action="handle_search.php" method="POST">
+                    <form action="list_user.php" method="POST">
                         <input placeholder="Tìm kiếm hình ảnh..." type="text" class="form-control" name="search">
 	                    <input type="submit" value="Tìm kiếm" />
                     </form>
