@@ -59,9 +59,7 @@ void SendFile(int new_socket, char *fname) {
 	fseek(fp, 0, SEEK_SET);
 	int n, total = 0;
 	char sendline[BUFF_DATA] = {0};
-	printf("abc\n");
 	send(new_socket, &size, sizeof(size), 0);
-	printf("abcdef\n");
 	while ((n = fread(sendline, 1, BUFF_DATA, fp)) > 0) {
 		if (n != BUFF_DATA && ferror(fp)) {
 			perror("[-] Read File Error");
@@ -87,7 +85,7 @@ int main(int argc, char * argv[]){
 	int client_sock,choose,menu;
 	char buff[BUFF_SIZE],input[BUFF_SIZE];
 	char *name , *pass;
-	char comfirm;
+	char enter,comfirm;
 	struct sockaddr_in server_addr; /* server's address information */
 	int msg_len, bytes_sent, bytes_received;
 	
@@ -140,10 +138,11 @@ int main(int argc, char * argv[]){
 			char *filename = strtok(NULL,"|");
 			printf("Reply from server:%s %s\n",opcode,filename);
 			if(strcmp(opcode,"5") ==0 ){
-				// printf("Ban nhan duoc yeu cau muon chia se anh ,Ban co muon chia se khong(y/n)?");
-				// scanf("%c",&comfirm);
-				if(1){
-			
+				printf("Ban nhan duoc yeu cau muon chia se anh ,Ban co muon chia se khong(y/n)?");
+				scanf("%c",&comfirm);
+				scanf("%c",&enter);
+				if(comfirm == 'y'){
+					
 					printf("Nhap thong diep:");
 					memset(buff,'\0',(strlen(buff)+1));
 					fgets(buff, BUFF_SIZE, stdin);					
@@ -157,13 +156,6 @@ int main(int argc, char * argv[]){
 						break;
 					}
 					send_image(client_sock,PATH );
-					// SendFile(client_sock,x);
-					// bytes_received = recv(client_sock, buff, BUFF_SIZE-1, 0);
-					// if(bytes_received <= 0){
-					// 	printf("\nError!Cannot receive data from sever!\n");
-					// 	break;
-					// }
-					// printf("Reply from server: %s", buff);
 					
 					printf("Cam on ban da chia se file\n");
 					// exit(0);

@@ -29,7 +29,7 @@
 #define SERVER_NAME "127.0.0.1"
 #define USERNAME "root"
 #define PASSWORD "Dung19102001"
-#define PATH "image/dungdoan/test.jpg"
+#define PATH "image/dungdoan/hanoi.jpg"
 MYSQL *con;
 
 List users;
@@ -351,19 +351,8 @@ void send_message_to_sender(char *file_path, char *username) {
 			// send(clients[i]->sockfd, send_request, sizeof(send_request), 0);
 			// SendFileToClient(clients[i]->sockfd, file_path);
 			printf("SEND_MESSAGE: %s\n", send_request);
-			printf("%d\n",clients[i]->sockfd);
 			
 			printf("[+]%s ",file_path);
-			// if(remove(file_path) == 0){
-			// 	printf("[+] DELETED FILE SUCCESS: %s\n", file_path);
-			// }else{
-			// 	printf("[-]  DELETED FILE FAILED: %s\n", file_path);
-			// }
-			// if(count_send == count_write) {
-			// 	count_send = count_write = 0;
-			// 	printf("[+] SEND TO %s DONE\n", clients[i]->name);
-			// 	break;
-			// }
 		}
 	}
 }
@@ -383,7 +372,7 @@ int send_image(int socket,char *filepath){
    fseek(picture, 0, SEEK_SET);
    printf("%d",size);
    //Send Picture Size
-   printf("%d\n",socket);
+   	printf("%d\n",socket);
    	write(socket, (void *)&size, sizeof(int));
 
    //Send Picture as Byte Array
@@ -391,7 +380,7 @@ int send_image(int socket,char *filepath){
    do { //Read while we get errors that are due to signals.
         stat=read(socket, &read_buffer , 255);
    } while (stat < 0);
-	printf("das\n");
+
    while(!feof(picture)) {
         //Read from the file into our send buffer
         read_size = fread(send_buffer, 1, sizeof(send_buffer)-1, picture);

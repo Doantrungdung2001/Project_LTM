@@ -6,7 +6,8 @@
         "typeinfo": "c",
         "wait.h": "c",
         "unistd.h": "c",
-        "in.h": "c"
+        "in.h": "c",
+        "inet.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

@@ -15,7 +15,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define PATH "send.jpg"
+#define PATH "hanoi.jpg"
 
 #define BUFF_SIZE 1024
 #define BUFF_DATA 4096
@@ -32,7 +32,7 @@ int receive_image(int socket, char *filename)
 		stat = read(socket, &size, sizeof(int));
 	}while(stat < 0);
 	printf("nhan size\n");
-	printf("%d",size);
+	printf("Kich thuoc :%d\n",size);
 	char buffer[255] = "Got";	
 //Send our verification signal
 	do{
@@ -40,7 +40,6 @@ int receive_image(int socket, char *filename)
 	}while(stat < 0);
 
 	image = fopen(filename, "w+");
-	printf("[+]%s\n",filename);
 //Loop while we have not received the entire file yet
 	int need_exit = 0;
 	struct timeval timeout = {10,0};
@@ -133,35 +132,41 @@ int main(int argc, char * argv[]){
 					printf("Login\n");
 					while (1){
 						printf("\n*********************************************\n");
-						printf("*Tim kiem anh theo ten                       *\n");
-						printf("*Dang xuat                                  *\n");
+						printf("*1.Hien thi thong tin nguoi online            *\n");
+						printf("*2.Tim kiem anh                               *\n");
+						printf("*3.Dang xuat                                  *\n");
 						printf("*********************************************\n");
-						printf("Nhap:");
-						memset(buff,'\0',(strlen(buff)+1));
-						fgets(buff, BUFF_SIZE, stdin);		
-						msg_len = strlen(buff);
-						if (msg_len == 0) break;
-						
-						bytes_sent = send(client_sock, buff, msg_len, 0);
-						if(bytes_sent <= 0){
-							printf("\nConnection closed!\n");
+						printf("Ban hay chon 1 chuc nang :");
+						scanf("%d",&menu);
+						scanf("%c",&enter);
+						switch (menu){
+						case 1:
+							printf("chuc nang 1\n");
+							break;
+						case 2:
+							printf("Nhap thong diep :");
+							memset(buff,'\0',(strlen(buff)+1));
+							fgets(buff, BUFF_SIZE, stdin);		
+							msg_len = strlen(buff);
+							if (msg_len == 0) break;
+								
+							bytes_sent = send(client_sock, buff, msg_len, 0);
+							if(bytes_sent <= 0){
+								printf("\nConnection closed!\n");
+								break;
+							}
+							receive_image(client_sock,PATH);
+							break;
+						case 3:
+							printf("Ban co muon dang xuat khong khong(y/n)?");
+							scanf("%c",&comfirm);
+							if(comfirm == 'y'){
+								exit(0);
+							}
+						default:
 							break;
 						}
-						receive_image(client_sock,PATH);
-						//receive echo reply
-						// bytes_received = recv(client_sock, buff, BUFF_SIZE-1, 0);
-						// if(bytes_received <= 0){
-						// 	printf("\nError!Cannot receive data from sever!\n");
-						// 	break;
-						// }
-						// char *opcode = strtok(buff,"|");
-						// char *filename = strtok(NULL,"|");
-						// printf("Reply from server:%s %s\n",opcode,filename);
-						// if(strcmp(opcode,"8") == 0){
-						// 	sprintf(file_path, "Folder_client/%s.jpg", filename);
-						// 	receive_image(client_sock,file_path);
-						// 	printf("Cam on %s\n",filename);
-						// }
+						
 					}		
 				}else{
 					printf("fale\n");
@@ -169,7 +174,7 @@ int main(int argc, char * argv[]){
 			break;
 			case 2:
 				printf("\nChuc nang dang ky\n");
-				printf("Nhap:");
+				printf("Nhap thong diep:");
 				fflush(stdin);
 				memset(buff,'\0',(strlen(buff)+1));
 				fgets(buff, BUFF_SIZE, stdin);		
@@ -204,32 +209,6 @@ int main(int argc, char * argv[]){
 				}
 				
 		}
-		// send message
-		// printf("\nInsert string to send:");
-		// memset(buff,'\0',(strlen(buff)+1));
-		// fgets(buff, BUFF_SIZE, stdin);		
-		// msg_len = strlen(buff);
-		// if (msg_len == 0) break;
-		
-		// bytes_sent = send(client_sock, buff, msg_len, 0);
-		// if(bytes_sent <= 0){
-		// 	printf("\nConnection closed!\n");
-		// 	break;
-		// }
-		
-		// //receive echo reply
-		// bytes_received = recv(client_sock, buff, BUFF_SIZE-1, 0);
-		// if(bytes_received <= 0){
-		// 	printf("\nError!Cannot receive data from sever!\n");
-		// 	break;
-		// }
-		
-		// // if(strcmp(buff,"16")){
-		// // 	printf("Login");
-		// // }else{
-		// // 	printf("fale");
-		// // }
-		// printf("Reply from server: %s", buff);
 	}
 	
 	//Step 4: Close socket
