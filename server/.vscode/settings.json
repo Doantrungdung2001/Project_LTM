@@ -3,7 +3,10 @@
         "types.h": "c",
         "stdlib.h": "c",
         "string.h": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "wait.h": "c",
+        "unistd.h": "c",
+        "in.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

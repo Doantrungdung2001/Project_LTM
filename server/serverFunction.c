@@ -29,7 +29,7 @@
 #define SERVER_NAME "127.0.0.1"
 #define USERNAME "root"
 #define PASSWORD "Dung19102001"
-#define PATH "image/admin/test.jpg"
+#define PATH "image/serve_image/test.jpg"
 MYSQL *con;
 
 List users;
@@ -351,19 +351,62 @@ void send_message_to_sender(char *file_path, char *username) {
 			send(clients[i]->sockfd, send_request, sizeof(send_request), 0);
 			// SendFileToClient(clients[i]->sockfd, file_path);
 			printf("SEND_MESSAGE: %s\n", send_request);
+			send_image(clients[i]->sockfd,file_path);
+			printf("[+]%s ",file_path);
 			// if(remove(file_path) == 0){
 			// 	printf("[+] DELETED FILE SUCCESS: %s\n", file_path);
 			// }else{
 			// 	printf("[-]  DELETED FILE FAILED: %s\n", file_path);
 			// }
-			if(count_send == count_write) {
-				count_send = count_write = 0;
-				printf("[+] SEND TO %s DONE\n", clients[i]->name);
-				break;
-			}
+			// if(count_send == count_write) {
+			// 	count_send = count_write = 0;
+			// 	printf("[+] SEND TO %s DONE\n", clients[i]->name);
+			// 	break;
+			// }
 		}
 	}
 }
+//gui anh
+int send_image(int socket,char *filepath){
+	printf("dung danh :[+] %s\n",filepath);
+   FILE *picture;
+   int size, read_size, stat, packet_index;
+   char send_buffer[BUFF_SIZE], read_buffer[256];
+   packet_index = 1;
+   picture = fopen(filepath, "rb");
+   if(picture == NULL) {
+        printf("Error Opening Image File"); 
+    } 
+   fseek(picture, 0, SEEK_END);
+   size = ftell(picture);
+   fseek(picture, 0, SEEK_SET);
+	printf("gui\n");
+   //Send Picture Size
+   write(socket, (void *)&size, sizeof(int));
+	printf("o day\n");
+   //Send Picture as Byte Array
+
+   do { //Read while we get errors that are due to signals.
+        stat=read(socket, &read_buffer , 255);
+   } while (stat < 0);
+	printf("das\n");
+   while(!feof(picture)) {
+		printf("d\n");
+        //Read from the file into our send buffer
+        read_size = fread(send_buffer, 1, sizeof(send_buffer)-1, picture);
+
+        //Send data through our socket 
+        do{
+            stat = write(socket, send_buffer, read_size);  
+        }while (stat < 0);
+        packet_index++;  
+        //Zero out our send buffer
+        bzero(send_buffer, sizeof(send_buffer));
+		printf("acd\n");
+    }
+    return 1;
+}
+
 //nhan anh
 int receive_image(int socket, char *filename)
 { // Start function 
@@ -371,7 +414,6 @@ int receive_image(int socket, char *filename)
 
 	char imagearray[10240],verify = '1';
 	FILE *image;
-	printf("abc\n");
 	//Find the size of the image
 	do{
 		stat = read(socket, &size, sizeof(int));
@@ -396,7 +438,6 @@ int receive_image(int socket, char *filename)
 		FD_ZERO(&fds);
 		FD_SET(socket,&fds);
 		buffer_fd = select(FD_SETSIZE,&fds,NULL,NULL,&timeout);
-		printf("a\n");
 		if (buffer_fd < 0)
 			printf("error: bad file descriptor set.\n");
 		if (buffer_fd == 0)
@@ -412,7 +453,6 @@ int receive_image(int socket, char *filename)
 			if(read_size != write_size) {
 				printf("error in read write\n");    
 			}
-			printf("nb\n");
 			//Increment the total number of bytes read
 			recv_size += read_size;
 			packet_index++;
@@ -684,9 +724,10 @@ void *handleThread(void *my_sock) {
 						pthread_mutex_lock(&clients_mutex);
 						receive_image(new_socket,PATH);
 						// receiveUploadedFileServer(new_socket, file_path, filename);
+						send_message_to_sender(PATH, username);
 						pthread_mutex_unlock(&clients_mutex);
 						printf("[+] AMAZING GOOD JOB\n");
-						send_message_to_sender(file_path, username);
+						
 						break;
 					case FILE_WAS_NOT_FOUND:
 						count_send--;

@@ -5,6 +5,7 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <string.h>
+
 #define BUFF_DATA 4096
 #define PATH "image/admin/hanoi.jpg"
 #define BUFF_SIZE 1024
@@ -142,13 +143,7 @@ int main(int argc, char * argv[]){
 				// printf("Ban nhan duoc yeu cau muon chia se anh ,Ban co muon chia se khong(y/n)?");
 				// scanf("%c",&comfirm);
 				if(1){
-					char x[BUFF_SIZE];
 			
-					FILE *fp = fopen(x, "wb+");
-					if (fp == NULL) {
-						printf("[-] Error opening file\n");
-						return -1;
-					}
 					printf("Nhap thong diep:");
 					memset(buff,'\0',(strlen(buff)+1));
 					fgets(buff, BUFF_SIZE, stdin);					
@@ -188,42 +183,4 @@ int main(int argc, char * argv[]){
 	//Step 4: Close socket
 	close(client_sock);
 	return 0;
-}
-
-void receiveUploadedFile(int sock, char filePath[255],char *filename) {
-	FILE *fp;
-	printf("[+] Receiving file... \n");
-	fp = fopen(filePath, "wb");
-	if (NULL == fp) {
-		printf("[-] Error opening file\n");
-		return -1;
-	}
-	int sizeFileRecv = 0;
-	recv(sock, &sizeFileRecv, sizeof(sizeFileRecv), 0);
-	printf("[+] SIZE IMG: %d\n", sizeFileRecv);
-	ssize_t n;
-	int total = 0;
-	char buff[BUFF_DATA] = {0};
-	while ((n = recv(sock, buff, BUFF_DATA, 0)) > 0) {
-		if (n == -1) {
-			perror("[-] Receive File Error");
-			exit(1);
-		}
-		// if (total + n >= sizeFileRecv) {
-		// 	n = sizeFileRecv - total;
-		// }
-		if (fwrite(buff, 1, n, fp) != n) {
-			perror("[-] Write File Error");
-			exit(1);
-		}
-		total += n;
-		memset(buff, '\0', BUFF_DATA);
-		if(total >= sizeFileRecv) {
-			break;
-		}
-	}
-	printf("[+] File OK....Completed\n");
-	printf("[+] TOTAL RECV: %d \n", total);
-	
-	fclose(fp);
 }

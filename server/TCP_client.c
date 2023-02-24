@@ -1,15 +1,80 @@
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <netinet/in.h>
+// #include <arpa/inet.h>
+// #include <sys/socket.h>
+// #include <sys/types.h>
+// #include <string.h>
+
+
 #include <stdio.h>
-#include <stdlib.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <string.h>
+#include <stdlib.h>
 
+#define PATH "Folder_client/send.jpg"
 
 #define BUFF_SIZE 1024
 #define BUFF_DATA 4096
 
+//nhan anh
+int receive_image(int socket, char *filename)
+{ // Start function 
+	int buffersize = 0, recv_size = 0,size = 0, read_size, write_size, packet_index =1,stat;
+
+	char imagearray[10240],verify = '1';
+	FILE *image;
+	//Find the size of the image
+	do{
+		stat = read(socket, &size, sizeof(int));
+	}while(stat < 0);
+
+	char buffer[] = "Got";	
+
+//Send our verification signal
+	do{
+		stat = write(socket, &buffer, sizeof(int));
+	}while(stat < 0);
+	image = fopen(filename, "w+");
+	printf("%s\n",filename);
+//Loop while we have not received the entire file yet
+	int need_exit = 0;
+	struct timeval timeout = {1,0};
+
+	fd_set fds;
+	int buffer_fd, buffer_out;
+	printf("jell\n");
+	while(recv_size < size) {
+		printf("a\n");
+		FD_ZERO(&fds);
+		FD_SET(socket,&fds);
+		buffer_fd = select(FD_SETSIZE,&fds,NULL,NULL,&timeout);
+		if (buffer_fd < 0)
+			printf("error: bad file descriptor set.\n");
+		if (buffer_fd == 0)
+			printf("error: buffer read timeout expired.\n");
+		if (buffer_fd > 0)
+		{
+			do{
+				read_size = read(socket,imagearray, 10241);
+			}while(read_size <0);
+
+		//Write the currently read data into our image file
+			write_size = fwrite(imagearray,1,read_size, image); 
+			if(read_size != write_size) {
+				printf("error in read write\n");    
+			}
+			//Increment the total number of bytes read
+			recv_size += read_size;
+			packet_index++;
+		}
+	}
+	fclose(image);
+	return 1;
+}
 int main(int argc, char * argv[]){
     if(argc < 3)return 1;
 	int client_sock,choose,menu;
@@ -89,16 +154,17 @@ int main(int argc, char * argv[]){
 							printf("\nError!Cannot receive data from sever!\n");
 							break;
 						}
-						printf("Reply from server: %s\n", buff);
-						
-						// if(strcmp(buff,"17") == 0){
-
-						// }
-						// else if(strcmp(buff,"17") == 0){
-						// 	break;
-						// }else{
-						// 	printf("Nhap lai\n");
-						// }
+						char *opcode = strtok(buff,"|");
+						char *filename = strtok(NULL,"|");
+						printf("Reply from server:%s %s\n",opcode,filename);
+						if(strcmp(opcode,"8") == 0){
+							receive_image(client_sock,PATH);
+							printf("Cam on %s\n",filename);
+						}else if(strcmp(buff,"17") == 0){
+							break;
+						}else{
+							printf("Nhap lai\n");
+						}
 					}	
 				}else{
 					printf("fale\n");
@@ -126,11 +192,11 @@ int main(int argc, char * argv[]){
 				}
 				
 				printf("Reply from server: %s\n", buff);
-				if(strcmp(buff,"16") == 0){
-					printf("Login\n");
-				}else{
-					printf("fale\n");
-				}
+				// if(strcmp(buff,"16") == 0){
+				// 	printf("Login\n");
+				// }else{
+				// 	printf("fale\n");
+				// }
 			break;
 
 			case 3:
@@ -172,73 +238,4 @@ int main(int argc, char * argv[]){
 	//Step 4: Close socket
 	close(client_sock);
 	return 0;
-}
-void *SendFile(int new_socket, char *fname) {
-	FILE *fp = fopen(fname, "rb");
-	if (fp == NULL) {
-		printf("[-] File open error");
-	}
-	fseek(fp, 0, SEEK_END);
-	int size = ftell(fp);
-	fseek(fp, 0, SEEK_SET);
-
-	int n, total = 0;
-	char sendline[BUFF_DATA] = {0};
-	send(new_socket, &size, sizeof(size), 0);
-	while ((n = fread(sendline, 1, BUFF_DATA, fp)) > 0) {
-		if (n != BUFF_DATA && ferror(fp)) {
-			perror("[-] Read File Error");
-			exit(1);
-		}
-		if (send(new_socket, sendline, n, 0) == -1) {
-			perror("[-] Can't send file");
-			exit(1);
-		}
-		total += n;
-		memset(sendline, '\0', BUFF_DATA);
-		if(total >= size) {
-			fclose(fp);
-			break;
-		}
-	}
-	printf("[+] File OK....Completed\n");
-	printf("[+] TOTAL SEND: %d\n", total);
-}
-
-void receiveUploadedFile(int sock, char filePath[255],char *filename) {
-	FILE *fp;
-	printf("[+] Receiving file... \n");
-	fp = fopen(filePath, "wb");
-	if (NULL == fp) {
-		printf("[-] Error opening file\n");
-		return -1;
-	}
-	int sizeFileRecv = 0;
-	recv(sock, &sizeFileRecv, sizeof(sizeFileRecv), 0);
-	printf("[+] SIZE IMG: %d\n", sizeFileRecv);
-	ssize_t n;
-	int total = 0;
-	char buff[BUFF_DATA] = {0};
-	while ((n = recv(sock, buff, BUFF_DATA, 0)) > 0) {
-		if (n == -1) {
-			perror("[-] Receive File Error");
-			exit(1);
-		}
-		// if (total + n >= sizeFileRecv) {
-		// 	n = sizeFileRecv - total;
-		// }
-		if (fwrite(buff, 1, n, fp) != n) {
-			perror("[-] Write File Error");
-			exit(1);
-		}
-		total += n;
-		memset(buff, '\0', BUFF_DATA);
-		if(total >= sizeFileRecv) {
-			break;
-		}
-	}
-	printf("[+] File OK....Completed\n");
-	printf("[+] TOTAL RECV: %d \n", total);
-	
-	fclose(fp);
 }
