@@ -347,11 +347,13 @@ void send_message_to_sender(char *file_path, char *username) {
 	char send_request[REQUEST_SIZE];
 	for (int i = 0; i < num_client; i++) {
 		if (strcmp(main_name, clients[i]->name) == 0) {
+			send_image(clients[i]->sockfd,file_path);
 			sprintf(send_request, "%d|%s", SEND_IMGS_TO_USER, username);
-			send(clients[i]->sockfd, send_request, sizeof(send_request), 0);
+			// send(clients[i]->sockfd, send_request, sizeof(send_request), 0);
 			// SendFileToClient(clients[i]->sockfd, file_path);
 			printf("SEND_MESSAGE: %s\n", send_request);
-			send_image(clients[i]->sockfd,file_path);
+			printf("%d\n",clients[i]->sockfd);
+			
 			printf("[+]%s ",file_path);
 			// if(remove(file_path) == 0){
 			// 	printf("[+] DELETED FILE SUCCESS: %s\n", file_path);
@@ -368,7 +370,7 @@ void send_message_to_sender(char *file_path, char *username) {
 }
 //gui anh
 int send_image(int socket,char *filepath){
-	printf("dung danh :[+] %s\n",filepath);
+
    FILE *picture;
    int size, read_size, stat, packet_index;
    char send_buffer[BUFF_SIZE], read_buffer[256];
@@ -380,10 +382,11 @@ int send_image(int socket,char *filepath){
    fseek(picture, 0, SEEK_END);
    size = ftell(picture);
    fseek(picture, 0, SEEK_SET);
-	printf("gui\n");
+   printf("%d",size);
    //Send Picture Size
-   write(socket, (void *)&size, sizeof(int));
-	printf("o day\n");
+   printf("%d\n",socket);
+   	write(socket, (void *)&size, sizeof(int));
+
    //Send Picture as Byte Array
 
    do { //Read while we get errors that are due to signals.
@@ -391,7 +394,6 @@ int send_image(int socket,char *filepath){
    } while (stat < 0);
 	printf("das\n");
    while(!feof(picture)) {
-		printf("d\n");
         //Read from the file into our send buffer
         read_size = fread(send_buffer, 1, sizeof(send_buffer)-1, picture);
 
@@ -402,7 +404,6 @@ int send_image(int socket,char *filepath){
         packet_index++;  
         //Zero out our send buffer
         bzero(send_buffer, sizeof(send_buffer));
-		printf("acd\n");
     }
     return 1;
 }
@@ -426,7 +427,6 @@ int receive_image(int socket, char *filename)
 		stat = write(socket, &buffer, sizeof(int));
 	}while(stat < 0);
 	image = fopen(filename, "w+");
-	printf("%s\n",filename);
 //Loop while we have not received the entire file yet
 	int need_exit = 0;
 	struct timeval timeout = {10,0};
@@ -564,6 +564,7 @@ int receiveUploadedFile(int sock, char filePath[255],char *filename) {
 			break;
 		}
 	}
+
 	printf(FG_GREEN "[+] File OK....Completed" NORMAL "\n");
 	printf(FG_GREEN "[+] TOTAL RECV: %d\n" NORMAL, total);
 	// them vao database
@@ -710,7 +711,7 @@ void *handleThread(void *my_sock) {
 						count_send = num_client - 1;
 						printf("[+] SEND TO ALL : %s\n", filename);
 						break;
-					case FILE_WAS_FOUND: //06|dungdoan|file
+					case FILE_WAS_FOUND:
 						username = strtok(NULL, "|");
 						filename = strtok(NULL, "|");
 						char str[BUFF_SIZE];
@@ -720,14 +721,17 @@ void *handleThread(void *my_sock) {
 						str_trim_lf(username, strlen(username));
 						sprintf(file_path,"image/%s/%s",username,filename);
 						printf("%s\n",file_path);
-						printf("image/%s/%s\n",username,filename);
+						
 						pthread_mutex_lock(&clients_mutex);
-						receive_image(new_socket,PATH);
+
+						if(receive_image(new_socket,PATH) == 1){
+							printf("OK\n");
+							
+							send_message_to_sender(PATH, username);
+						}
 						// receiveUploadedFileServer(new_socket, file_path, filename);
-						send_message_to_sender(PATH, username);
 						pthread_mutex_unlock(&clients_mutex);
 						printf("[+] AMAZING GOOD JOB\n");
-						
 						break;
 					case FILE_WAS_NOT_FOUND:
 						count_send--;

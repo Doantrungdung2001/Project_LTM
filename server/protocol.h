@@ -46,5 +46,6 @@ typedef enum {
     RECONNECT,
     RECONNECT_SUCCESS,
     RECONNECT_FAILD
+
 } PROTOCOL;
 #endif

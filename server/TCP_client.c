@@ -31,24 +31,23 @@ int receive_image(int socket, char *filename)
 	do{
 		stat = read(socket, &size, sizeof(int));
 	}while(stat < 0);
-
-	char buffer[] = "Got";	
-
+	printf("nhan size\n");
+	printf("%d",size);
+	char buffer[255] = "Got";	
 //Send our verification signal
 	do{
 		stat = write(socket, &buffer, sizeof(int));
 	}while(stat < 0);
+
 	image = fopen(filename, "w+");
-	printf("%s\n",filename);
+	printf("[+]%s\n",filename);
 //Loop while we have not received the entire file yet
 	int need_exit = 0;
-	struct timeval timeout = {1,0};
+	struct timeval timeout = {10,0};
 
 	fd_set fds;
 	int buffer_fd, buffer_out;
-	printf("jell\n");
 	while(recv_size < size) {
-		printf("a\n");
 		FD_ZERO(&fds);
 		FD_SET(socket,&fds);
 		buffer_fd = select(FD_SETSIZE,&fds,NULL,NULL,&timeout);
@@ -78,7 +77,7 @@ int receive_image(int socket, char *filename)
 int main(int argc, char * argv[]){
     if(argc < 3)return 1;
 	int client_sock,choose,menu;
-	char buff[BUFF_SIZE];
+	char buff[BUFF_SIZE],file_path[BUFF_SIZE];
 	char *name , *pass;
 	char enter,comfirm;
 	struct sockaddr_in server_addr; /* server's address information */
@@ -148,24 +147,22 @@ int main(int argc, char * argv[]){
 							printf("\nConnection closed!\n");
 							break;
 						}
+						receive_image(client_sock,PATH);
 						//receive echo reply
-						bytes_received = recv(client_sock, buff, BUFF_SIZE-1, 0);
-						if(bytes_received <= 0){
-							printf("\nError!Cannot receive data from sever!\n");
-							break;
-						}
-						char *opcode = strtok(buff,"|");
-						char *filename = strtok(NULL,"|");
-						printf("Reply from server:%s %s\n",opcode,filename);
-						if(strcmp(opcode,"8") == 0){
-							receive_image(client_sock,PATH);
-							printf("Cam on %s\n",filename);
-						}else if(strcmp(buff,"17") == 0){
-							break;
-						}else{
-							printf("Nhap lai\n");
-						}
-					}	
+						// bytes_received = recv(client_sock, buff, BUFF_SIZE-1, 0);
+						// if(bytes_received <= 0){
+						// 	printf("\nError!Cannot receive data from sever!\n");
+						// 	break;
+						// }
+						// char *opcode = strtok(buff,"|");
+						// char *filename = strtok(NULL,"|");
+						// printf("Reply from server:%s %s\n",opcode,filename);
+						// if(strcmp(opcode,"8") == 0){
+						// 	sprintf(file_path, "Folder_client/%s.jpg", filename);
+						// 	receive_image(client_sock,file_path);
+						// 	printf("Cam on %s\n",filename);
+						// }
+					}		
 				}else{
 					printf("fale\n");
 				}
