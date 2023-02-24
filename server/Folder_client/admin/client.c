@@ -7,7 +7,7 @@
 #include <string.h>
 
 #define BUFF_DATA 4096
-#define PATH "image/admin/hanoi.jpg"
+#define PATH "hanoi.jpg"
 #define BUFF_SIZE 1024
 
 int send_image(int socket,char *filepath){

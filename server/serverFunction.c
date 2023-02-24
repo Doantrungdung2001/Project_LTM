@@ -29,7 +29,7 @@
 #define SERVER_NAME "127.0.0.1"
 #define USERNAME "root"
 #define PASSWORD "Dung19102001"
-#define PATH "image/serve_image/test.jpg"
+#define PATH "image/dungdoan/test.jpg"
 MYSQL *con;
 
 List users;
@@ -320,7 +320,6 @@ void send_message(char name[100], char *nameFile) {
 			printf("->SEND TO %s - RECV FROM %s - %s - %s \n", clients[i]->name, name, nameFile, send_request);
 			printf("%s\n",send_request);
 			send(clients[i]->sockfd, send_request, sizeof(send_request), 0);
-			printf("abcs");
 			memset(send_request, '\0', strlen(send_request) + 1);
 		}
 	}
